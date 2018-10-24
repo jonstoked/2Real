@@ -332,6 +332,23 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 3407b1dc86d75d448ae632980812f937,
     type: 3}
   m_PrefabInternal: {fileID: 1634841810}
+--- !u!114 &433826296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 433826294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7faf9aa820bdd24488153356dbdab104, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerIndex: 0
+  joint: 11
+  jointPosition: {x: 0, y: 0, z: 0}
+  isSaving: 0
+  saveFilePath: joint_pos.csv
+  secondsToSave: 0
 --- !u!114 &433826297
 MonoBehaviour:
   m_ObjectHideFlags: 0

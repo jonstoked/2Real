@@ -8,23 +8,19 @@ public class SkinSwapper : MonoBehaviour {
     Renderer rend;
     int currentSkin = 0;
 
-	// Use this for initialization
 	void Start () {
         rend = GetComponent<Renderer>();
         rend.sharedMaterial = materials[currentSkin];
         InvokeRepeating("SwapSkin", 3.0f, 3.0f);
 	}
 	
-	// Update is called once per frame
 	void Update () {
         ScrollMaterial();
 	}
 
     void ScrollMaterial ()
     {
-        //var offset = rend.sharedMaterial.GetTextureOffset();
         var offset = Time.time * 0.1f;
-        Debug.Log(offset);
         rend.sharedMaterial.mainTextureOffset = new Vector2(offset, 0); 
     }
 
