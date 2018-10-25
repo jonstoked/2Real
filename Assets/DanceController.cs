@@ -16,20 +16,26 @@ public class DanceController : MonoBehaviour
     public Vector3 jointPosition;
 
     [Tooltip("How much the player is jigglin'")]
-    public float jiggle = 0;
+    public float totalJointVelocity = 0;
+
+    public float headVelocity = 0; //head is joint 3
+    public Vector3 headPosition;
 
     private AvatarController avatarController;
+    private int jointTypeCount;
+    private Vector3[] previousJointPositions;
+    
 
     private void Awake()
     {
         avatarController = GetComponent<AvatarController>();
-        //Debug.Log("avatar controller index: " + avatarController.playerIndex);
         playerIndex = avatarController.playerIndex;
+        jointTypeCount = Enum.GetValues(typeof(KinectInterop.JointType)).Length;
+        previousJointPositions = new Vector3[jointTypeCount];
     }
 
     void Update()
     {
-        // get the joint position
         KinectManager manager = KinectManager.Instance;
 
         if (manager && manager.IsInitialized())
@@ -38,19 +44,33 @@ public class DanceController : MonoBehaviour
             {
                 long userId = manager.GetUserIdByIndex(playerIndex);
 
-                var jointTypes = Enum.GetValues(typeof(KinectInterop.JointType));
-                for (int i = 0; i < jointTypes.Length; ++i)
+                //get instantaneous velocity of each joint
+                totalJointVelocity = 0;
+                for (int i = 0; i < jointTypeCount; ++i)
                 {
-                    //var joint = KinectInterop.JointType.HandRight;
-                    //if (manager.IsJointTracked(userId, (int)joint))
                     if (manager.IsJointTracked(userId, i))
                     {
                         Vector3 jointPos = manager.GetJointPosition(userId, i);
-                        if (i==0)
+
+                        if (i == 3)
                         {
-                            Debug.Log(jointPos);
+                            headPosition = jointPos;
                         }
 
+                        if (i < previousJointPositions.Length)
+                        {
+                            //previous value exists, calculate velocity and add it to jiggle
+                            Vector3 previousJointPos = previousJointPositions[i];
+                            var jointVelocity = (jointPos - previousJointPos).magnitude / Time.deltaTime;
+                            totalJointVelocity = totalJointVelocity + jointVelocity;
+
+                            if(i==3)
+                            {
+                                headVelocity = jointVelocity;
+                                headPosition = jointPos;
+                            }
+                        }
+                        previousJointPositions[i] = jointPos;
                     }
                 }
 
