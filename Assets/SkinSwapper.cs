@@ -11,7 +11,7 @@ public class SkinSwapper : MonoBehaviour {
 	void Start () {
         rend = GetComponent<Renderer>();
         rend.sharedMaterial = materials[currentSkin];
-        InvokeRepeating("SwapSkin", 3.0f, 3.0f);
+        //InvokeRepeating("SwapSkin", 3.0f, 3.0f);
 	}
 	
 	void Update () {
