@@ -1051,6 +1051,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalJointVelocity: 0
   headVelocity: 0
+  handsUp: 0
 --- !u!114 &114566305830882244
 MonoBehaviour:
   m_ObjectHideFlags: 1
