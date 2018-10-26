@@ -5,26 +5,17 @@ using System;
 
 public class DanceController : MonoBehaviour
 {
-
-    [Tooltip("Index of the player, tracked by this component. 0 means the 1st player, 1 - the 2nd one, 2 - the 3rd one, etc.")]
     private int playerIndex = 0;
-
-    //[Tooltip("The Kinect joint we want to track.")]
-    //public KinectInterop.JointType joint = KinectInterop.JointType.HandRight;
-
-    [Tooltip("Current joint position in Kinect coordinates (meters).")]
-    public Vector3 jointPosition;
 
     [Tooltip("How much the player is jigglin'")]
     public float totalJointVelocity = 0;
 
     public float headVelocity = 0; //head is joint 3
-    public Vector3 headPosition;
-
+    
     private AvatarController avatarController;
     private int jointTypeCount;
     private Vector3[] previousJointPositions;
-    
+    private long lastDepthFrameTime;
 
     private void Awake()
     {
@@ -38,48 +29,44 @@ public class DanceController : MonoBehaviour
     {
         KinectManager manager = KinectManager.Instance;
 
-        if (manager && manager.IsInitialized())
+        if (lastDepthFrameTime != manager.GetSensorData().lastDepthFrameTime) //only check joint velocity when depth data updates
         {
-            if (manager.IsUserDetected(playerIndex))
+            lastDepthFrameTime = manager.GetSensorData().lastDepthFrameTime;
+            if (manager && manager.IsInitialized())
             {
-                long userId = manager.GetUserIdByIndex(playerIndex);
-
-                //get instantaneous velocity of each joint
-                totalJointVelocity = 0;
-                for (int i = 0; i < jointTypeCount; ++i)
+                if (manager.IsUserDetected(playerIndex))
                 {
-                    if (manager.IsJointTracked(userId, i))
+                    long userId = manager.GetUserIdByIndex(playerIndex);
+
+                    //get instantaneous velocity of each joint
+                    totalJointVelocity = 0;
+                    for (int i = 0; i < jointTypeCount; ++i)
                     {
-                        Vector3 jointPos = manager.GetJointPosition(userId, i);
-
-                        if (i == 3)
+                        if (manager.IsJointTracked(userId, i))
                         {
-                            headPosition = jointPos;
-                        }
+                            Vector3 jointPos = manager.GetJointPosition(userId, i);
 
-                        if (i < previousJointPositions.Length)
-                        {
-                            //previous value exists, calculate velocity and add it to jiggle
-                            Vector3 previousJointPos = previousJointPositions[i];
-                            var jointVelocity = (jointPos - previousJointPos).magnitude / Time.deltaTime;
-                            totalJointVelocity = totalJointVelocity + jointVelocity;
-
-                            if(i==3)
+                            if (i < previousJointPositions.Length)
                             {
-                                headVelocity = jointVelocity;
-                                headPosition = jointPos;
+                                //previous value exists, calculate velocity and add it to jiggle
+                                Vector3 previousJointPos = previousJointPositions[i];
+                                var jointDistanceDifference = (jointPos - previousJointPos).magnitude;
+                                var jointVelocity = jointDistanceDifference / Time.deltaTime;
+                                totalJointVelocity = totalJointVelocity + jointVelocity;
+
+                                if (i == 3)
+                                {
+                                    headVelocity = jointVelocity;
+                                }
                             }
+                            previousJointPositions[i] = jointPos;
                         }
-                        previousJointPositions[i] = jointPos;
                     }
+
+
                 }
-
-
             }
         }
-
     }
-
-
 }
 
