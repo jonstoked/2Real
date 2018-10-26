@@ -46,6 +46,7 @@ public class DanceController : MonoBehaviour
                     CalculateTotalJointVelocity();
                     CheckForHandsUpPose();
                     checkForHandsDown();
+                    checkForLegUp();
                     ScaleBodyParts();
 
                     
@@ -111,6 +112,16 @@ public class DanceController : MonoBehaviour
         handsDown = (leftHand.y < leftKnee.y && rightHand.y < rightKnee.y);
     }
 
+    private void checkForLegUp()
+    {
+        var leftKnee = JointPos(13);
+        var rightKnee = JointPos(17);
+
+        float diffFactor = 1.2f;
+
+        legUp = (rightKnee.y > leftKnee.y * diffFactor || leftKnee.y > rightKnee.y * diffFactor);
+    }
+
     private void ScaleBodyParts()
     {
         float scaleRate = .005f;
@@ -122,6 +133,11 @@ public class DanceController : MonoBehaviour
         if(handsDown)
         {
             avatarScaler.armScaleFactor += scaleRate;
+        }
+
+        if(legUp)
+        {
+            avatarScaler.legScaleFactor -= scaleRate;
         }
     }
 
