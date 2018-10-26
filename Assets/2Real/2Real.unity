@@ -562,6 +562,11 @@ Prefab:
       propertyPath: moveRate
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114659971779452932, guid: d502787ce2f062a449a2796fbad25125,
+        type: 2}
+      propertyPath: mirroredAvatar
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114510705203409596, guid: d502787ce2f062a449a2796fbad25125, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: d502787ce2f062a449a2796fbad25125, type: 2}

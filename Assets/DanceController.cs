@@ -8,9 +8,13 @@ public class DanceController : MonoBehaviour
     public float totalJointVelocity = 0;
     public float headVelocity = 0; //head is joint 3
     public bool handsUp = false;
+    public bool handsDown = false;
+    public bool legUp = false;
+    public bool squatting = false;
 
     private int playerIndex = 0;
     private AvatarController avatarController;
+    private AvatarScaler avatarScaler;
     private int jointTypeCount;
     private Vector3[] previousJointPositions;
     private long lastDepthFrameTime;
@@ -21,6 +25,7 @@ public class DanceController : MonoBehaviour
     private void Awake()
     {
         avatarController = GetComponent<AvatarController>();
+        avatarScaler = GetComponent<AvatarScaler>();
         playerIndex = avatarController.playerIndex;
         jointTypeCount = Enum.GetValues(typeof(KinectInterop.JointType)).Length;
         previousJointPositions = new Vector3[jointTypeCount];
@@ -40,6 +45,8 @@ public class DanceController : MonoBehaviour
                 {
                     CalculateTotalJointVelocity();
                     CheckForHandsUpPose();
+                    checkForHandsDown();
+                    ScaleBodyParts();
 
                     
 
@@ -49,35 +56,37 @@ public class DanceController : MonoBehaviour
         }
     }
 
-   /* public enum JointType : int
-    {
-        SpineBase = 0,
-        SpineMid = 1,
-        Neck = 2,
-        Head = 3,
-        ShoulderLeft = 4,
-        ElbowLeft = 5,
-        WristLeft = 6,
-        HandLeft = 7,
-        ShoulderRight = 8,
-        ElbowRight = 9,
-        WristRight = 10,
-        HandRight = 11,
-        HipLeft = 12,
-        KneeLeft = 13,
-        AnkleLeft = 14,
-        FootLeft = 15,
-        HipRight = 16,
-        KneeRight = 17,
-        AnkleRight = 18,
-        FootRight = 19,
-        SpineShoulder = 20,
-        HandTipLeft = 21,
-        ThumbLeft = 22,
-        HandTipRight = 23,
-        ThumbRight = 24
-        //Count = 25
-    }*/
+
+
+    /* public enum JointType : int
+     {
+         SpineBase = 0,
+         SpineMid = 1,
+         Neck = 2,
+         Head = 3,
+         ShoulderLeft = 4,
+         ElbowLeft = 5,
+         WristLeft = 6,
+         HandLeft = 7,
+         ShoulderRight = 8,
+         ElbowRight = 9,
+         WristRight = 10,
+         HandRight = 11,
+         HipLeft = 12,
+         KneeLeft = 13,
+         AnkleLeft = 14,
+         FootLeft = 15,
+         HipRight = 16,
+         KneeRight = 17,
+         AnkleRight = 18,
+         FootRight = 19,
+         SpineShoulder = 20,
+         HandTipLeft = 21,
+         ThumbLeft = 22,
+         HandTipRight = 23,
+         ThumbRight = 24
+         //Count = 25
+     }*/
 
     private void CheckForHandsUpPose()
     {
@@ -90,6 +99,30 @@ public class DanceController : MonoBehaviour
         float diffFactor = 1.3f;
 
         handsUp = (leftHandPosition.y > leftShoulderPosition.y * diffFactor && rightHandPosition.y > rightShoulderPosition.y * diffFactor);
+    }
+
+    private void checkForHandsDown()
+    {
+        var leftHand = JointPos(7);
+        var rightHand = JointPos(11);
+        var leftKnee = JointPos(13);
+        var rightKnee = JointPos(17);
+
+        handsDown = (leftHand.y < leftKnee.y && rightHand.y < rightKnee.y);
+    }
+
+    private void ScaleBodyParts()
+    {
+        float scaleRate = .005f;
+        if(handsUp)
+        {
+            avatarScaler.armScaleFactor -= scaleRate;
+        }
+
+        if(handsDown)
+        {
+            avatarScaler.armScaleFactor += scaleRate;
+        }
     }
 
     Vector3 JointPos(int jointIndex)
