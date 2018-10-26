@@ -8,7 +8,7 @@ public class DanceController : MonoBehaviour
     public float totalJointVelocity = 0;
     public float headVelocity = 0; //head is joint 3
     public bool handsUp = false;
-    public bool handsDown = false;
+    public bool chickenArms = false;
     public bool legUp = false;
     public bool squatting = false;
 
@@ -21,6 +21,9 @@ public class DanceController : MonoBehaviour
 
     private KinectManager manager;
     private long userId; //I believe this needs to be updated each frame.  I don't think it always correlates with playerIndex
+
+    public float handToShoulderDistanceLeft;
+    public float handToShoulderDistanceRight;
 
     private void Awake()
     {
@@ -44,8 +47,8 @@ public class DanceController : MonoBehaviour
                 if (manager.IsUserDetected(playerIndex))
                 {
                     CalculateTotalJointVelocity();
-                    CheckForHandsUpPose();
-                    checkForHandsDown();
+                    CheckForHandsUp();
+                    CheckForChickenArms();
                     checkForLegUp();
                     ScaleBodyParts();
 
@@ -89,7 +92,7 @@ public class DanceController : MonoBehaviour
          //Count = 25
      }*/
 
-    private void CheckForHandsUpPose()
+    private void CheckForHandsUp()
     {
         var leftHandPosition = JointPos(7);
         var rightHandPosition = JointPos(11);
@@ -102,14 +105,17 @@ public class DanceController : MonoBehaviour
         handsUp = (leftHandPosition.y > leftShoulderPosition.y * diffFactor && rightHandPosition.y > rightShoulderPosition.y * diffFactor);
     }
 
-    private void checkForHandsDown()
+    private void CheckForChickenArms()
     {
         var leftHand = JointPos(7);
         var rightHand = JointPos(11);
-        var leftKnee = JointPos(13);
-        var rightKnee = JointPos(17);
+        var leftShoulder = JointPos(4);
+        var rightShoulder = JointPos(8);
 
-        handsDown = (leftHand.y < leftKnee.y && rightHand.y < rightKnee.y);
+        handToShoulderDistanceLeft = (leftHand - leftShoulder).magnitude;
+        handToShoulderDistanceRight = (rightHand - rightShoulder).magnitude;
+
+        chickenArms = (handToShoulderDistanceLeft < 0.2f && handToShoulderDistanceRight < 0.2f);
     }
 
     private void checkForLegUp()
@@ -127,12 +133,12 @@ public class DanceController : MonoBehaviour
         float scaleRate = .005f;
         if(handsUp)
         {
-            avatarScaler.armScaleFactor -= scaleRate;
+            avatarScaler.armScaleFactor += scaleRate;
         }
 
-        if(handsDown)
+        if(chickenArms)
         {
-            avatarScaler.armScaleFactor += scaleRate;
+            avatarScaler.armScaleFactor -= scaleRate;
         }
 
         if(legUp)
