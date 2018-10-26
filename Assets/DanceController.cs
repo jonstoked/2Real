@@ -11,11 +11,13 @@ public class DanceController : MonoBehaviour
     public float totalJointVelocity = 0;
 
     public float headVelocity = 0; //head is joint 3
-    
+
+    private KinectManager manager;
     private AvatarController avatarController;
     private int jointTypeCount;
     private Vector3[] previousJointPositions;
     private long lastDepthFrameTime;
+
 
     private void Awake()
     {
@@ -27,8 +29,7 @@ public class DanceController : MonoBehaviour
 
     void Update()
     {
-        KinectManager manager = KinectManager.Instance;
-
+        manager = KinectManager.Instance;
         if (lastDepthFrameTime != manager.GetSensorData().lastDepthFrameTime) //only check joint velocity when depth data updates
         {
             lastDepthFrameTime = manager.GetSensorData().lastDepthFrameTime;
@@ -36,35 +37,42 @@ public class DanceController : MonoBehaviour
             {
                 if (manager.IsUserDetected(playerIndex))
                 {
-                    long userId = manager.GetUserIdByIndex(playerIndex);
+                    CalculateTotalJointVelocity();
 
-                    //get instantaneous velocity of each joint
-                    totalJointVelocity = 0;
-                    for (int i = 0; i < jointTypeCount; ++i)
-                    {
-                        if (manager.IsJointTracked(userId, i))
-                        {
-                            Vector3 jointPos = manager.GetJointPosition(userId, i);
 
-                            if (i < previousJointPositions.Length)
-                            {
-                                //previous value exists, calculate velocity and add it to jiggle
-                                Vector3 previousJointPos = previousJointPositions[i];
-                                var jointDistanceDifference = (jointPos - previousJointPos).magnitude;
-                                var jointVelocity = jointDistanceDifference / Time.deltaTime;
-                                totalJointVelocity = totalJointVelocity + jointVelocity;
-
-                                if (i == 3)
-                                {
-                                    headVelocity = jointVelocity;
-                                }
-                            }
-                            previousJointPositions[i] = jointPos;
-                        }
-                    }
+                    
 
 
                 }
+            }
+        }
+    }
+
+    void CalculateTotalJointVelocity()
+    {
+        //sum velocity of each joint for this frame
+        long userId = manager.GetUserIdByIndex(playerIndex);
+        totalJointVelocity = 0;
+
+        for (int i = 0; i < jointTypeCount; ++i)
+        {
+            if (manager.IsJointTracked(userId, i))
+            {
+                Vector3 jointPos = manager.GetJointPosition(userId, i);
+
+                if (i < previousJointPositions.Length)
+                {
+                    Vector3 previousJointPos = previousJointPositions[i];
+                    var jointDistanceDifference = (jointPos - previousJointPos).magnitude;
+                    var jointVelocity = jointDistanceDifference / Time.deltaTime;
+                    totalJointVelocity = totalJointVelocity + jointVelocity;
+
+                    if (i == 3)
+                    {
+                        headVelocity = jointVelocity;
+                    }
+                }
+                previousJointPositions[i] = jointPos;
             }
         }
     }
