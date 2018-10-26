@@ -220,6 +220,7 @@ GameObject:
   - component: {fileID: 95447300580435824}
   - component: {fileID: 114566305830882244}
   - component: {fileID: 114659971779452932}
+  - component: {fileID: 114548384638001830}
   m_Layer: 0
   m_Name: Avatar
   m_TagString: Untagged
@@ -1037,6 +1038,19 @@ MonoBehaviour:
   isSaving: 0
   saveFilePath: joint_pos.csv
   secondsToSave: 0
+--- !u!114 &114548384638001830
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1492090544114330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccc1e39c09889914db050000a4d2cae0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalJointVelocity: 0
+  headVelocity: 0
 --- !u!114 &114566305830882244
 MonoBehaviour:
   m_ObjectHideFlags: 1

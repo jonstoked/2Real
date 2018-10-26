@@ -272,6 +272,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &295333779 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1492090544114330, guid: d502787ce2f062a449a2796fbad25125,
+    type: 2}
+  m_PrefabInternal: {fileID: 1986092388}
+--- !u!114 &295333780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 295333779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccc1e39c09889914db050000a4d2cae0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalJointVelocity: 0
+  headVelocity: 0
 --- !u!1 &299521380
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,10 +475,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccc1e39c09889914db050000a4d2cae0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jointPosition: {x: 0, y: 0, z: 0}
   totalJointVelocity: 0
   headVelocity: 0
-  headPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &760189890
 GameObject:
   m_ObjectHideFlags: 0
@@ -1177,3 +1193,76 @@ MonoBehaviour:
   bodyBlurFilter: 1
   bodyContourColor: {r: 0, g: 0, b: 0, a: 1}
   debugText: {fileID: 0}
+--- !u!1001 &1986092388
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4532621014464918, guid: d502787ce2f062a449a2796fbad25125, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4532621014464918, guid: d502787ce2f062a449a2796fbad25125, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 4532621014464918, guid: d502787ce2f062a449a2796fbad25125, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4532621014464918, guid: d502787ce2f062a449a2796fbad25125, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4532621014464918, guid: d502787ce2f062a449a2796fbad25125, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4532621014464918, guid: d502787ce2f062a449a2796fbad25125, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4532621014464918, guid: d502787ce2f062a449a2796fbad25125, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: -0.00000004371139
+      objectReference: {fileID: 0}
+    - target: {fileID: 4532621014464918, guid: d502787ce2f062a449a2796fbad25125, type: 2}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114566305830882244, guid: d502787ce2f062a449a2796fbad25125,
+        type: 2}
+      propertyPath: posRelativeToCamera
+      value: 
+      objectReference: {fileID: 1104360806}
+    - target: {fileID: 114566305830882244, guid: d502787ce2f062a449a2796fbad25125,
+        type: 2}
+      propertyPath: playerIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1492090544114330, guid: d502787ce2f062a449a2796fbad25125, type: 2}
+      propertyPath: m_Name
+      value: Avatar (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4582149200964212, guid: d502787ce2f062a449a2796fbad25125, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0.061
+      objectReference: {fileID: 0}
+    - target: {fileID: 4582149200964212, guid: d502787ce2f062a449a2796fbad25125, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -8.932
+      objectReference: {fileID: 0}
+    - target: {fileID: 4582149200964212, guid: d502787ce2f062a449a2796fbad25125, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1.795
+      objectReference: {fileID: 0}
+    - target: {fileID: 114659971779452932, guid: d502787ce2f062a449a2796fbad25125,
+        type: 2}
+      propertyPath: playerIndex
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d502787ce2f062a449a2796fbad25125, type: 2}
+  m_IsPrefabAsset: 0
