@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class DanceController : MonoBehaviour
+public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInterface
 {
     public float totalJointVelocity = 0;
     public float headVelocity = 0; //head is joint 3
@@ -24,6 +24,9 @@ public class DanceController : MonoBehaviour
 
     public float handToShoulderDistanceLeft;
     public float handToShoulderDistanceRight;
+
+    public Vector3 leftKnee;
+    public Vector3 rightKnee;
 
     private void Awake()
     {
@@ -59,6 +62,17 @@ public class DanceController : MonoBehaviour
             }
         }
     }
+
+    public void UserDetected(long userId, int userIndex)
+    {
+        // the gestures are allowed for the primary user only
+        KinectManager manager = KinectManager.Instance;
+
+        // detect these user specific gestures
+        manager.DetectGesture(userId, KinectGestures.Gestures.Jump);
+        manager.DetectGesture(userId, KinectGestures.Gestures.Wave);
+    }
+
 
 
 
@@ -120,12 +134,19 @@ public class DanceController : MonoBehaviour
 
     private void checkForLegUp()
     {
-        var leftKnee = JointPos(13);
-        var rightKnee = JointPos(17);
+        leftKnee = JointPos(13);
+        rightKnee = JointPos(17);
 
-        float diffFactor = 1.2f;
+        float diffFactor = 1.5f;
 
         legUp = (rightKnee.y > leftKnee.y * diffFactor || leftKnee.y > rightKnee.y * diffFactor);
+    }
+
+    private void CheckForSquat()
+    {
+        //leftFoot = JointPos(15);
+        //rightFoot = JointPos(19);
+        //leftFootToSpineBaseDistance = (JointPos())
     }
 
     private void ScaleBodyParts()
@@ -141,7 +162,7 @@ public class DanceController : MonoBehaviour
             avatarScaler.armScaleFactor -= scaleRate;
         }
 
-        if(legUp)
+        if(squatting)
         {
             avatarScaler.legScaleFactor -= scaleRate;
         }
@@ -178,6 +199,39 @@ public class DanceController : MonoBehaviour
                 previousJointPositions[i] = jointPos;
             }
         }
+    }
+
+    public void UserLost(long userId, int userIndex)
+    {
+    }
+
+    public void GestureInProgress(long userId, int userIndex, KinectGestures.Gestures gesture, float progress, KinectInterop.JointType joint, Vector3 screenPos)
+    {
+    }
+
+    public bool GestureCompleted(long userId, int userIndex, KinectGestures.Gestures gesture, KinectInterop.JointType joint, Vector3 screenPos)
+    {
+        if (userIndex == this.playerIndex)
+        {
+            if (gesture == KinectGestures.Gestures.Wave)
+            {
+                avatarScaler.bodyScaleFactor = 1.05f;
+                avatarScaler.armScaleFactor = 0.95f;
+                avatarScaler.legScaleFactor = 0.95f;
+            }
+            else if (gesture == KinectGestures.Gestures.Jump)
+            {
+                avatarScaler.bodyScaleFactor = UnityEngine.Random.Range(0f, 2.0f);
+                avatarScaler.armScaleFactor = UnityEngine.Random.Range(0f, 2.0f);
+                avatarScaler.legScaleFactor = UnityEngine.Random.Range(0f, 2.0f);
+            }
+        }
+        return true;
+    }
+
+    public bool GestureCancelled(long userId, int userIndex, KinectGestures.Gestures gesture, KinectInterop.JointType joint)
+    {
+        return true;
     }
 }
 

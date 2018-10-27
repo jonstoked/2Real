@@ -97,9 +97,12 @@ public class CubeGestureListener : MonoBehaviour, KinectGestures.GestureListener
 		// detect these user specific gestures
 		manager.DetectGesture(userId, KinectGestures.Gestures.SwipeLeft);
 		manager.DetectGesture(userId, KinectGestures.Gestures.SwipeRight);
-		manager.DetectGesture(userId, KinectGestures.Gestures.SwipeUp);
+		manager.DetectGesture(userId, KinectGestures.Gestures.Jump);
+        manager.DetectGesture(userId, KinectGestures.Gestures.Wave);
+        manager.DetectGesture(userId, KinectGestures.Gestures.Tpose);
+        manager.DetectGesture(userId, KinectGestures.Gestures.Psi);
 
-		if(gestureInfo != null)
+        if (gestureInfo != null)
 		{
 			gestureInfo.text = "Swipe left, right or up to change the slides.";
 		}

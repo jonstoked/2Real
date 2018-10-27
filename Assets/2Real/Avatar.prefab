@@ -1052,6 +1052,13 @@ MonoBehaviour:
   totalJointVelocity: 0
   headVelocity: 0
   handsUp: 0
+  chickenArms: 0
+  legUp: 0
+  squatting: 0
+  handToShoulderDistanceLeft: 0
+  handToShoulderDistanceRight: 0
+  leftKnee: {x: 0, y: 0, z: 0}
+  rightKnee: {x: 0, y: 0, z: 0}
 --- !u!114 &114566305830882244
 MonoBehaviour:
   m_ObjectHideFlags: 1

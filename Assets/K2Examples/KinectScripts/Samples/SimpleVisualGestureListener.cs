@@ -25,14 +25,14 @@ public class SimpleVisualGestureListener : MonoBehaviour, VisualGestureListenerI
 		if (userIndex != playerIndex)
 			return;
 		
-		if(continuousInfo != null)
-		{
+		//if(continuousInfo != null)
+		//{
 			string sGestureText = string.Format ("{0} {1:F0}%", gesture, progress * 100f);
-			continuousInfo.text = sGestureText;
+			discreteInfo.text = sGestureText;
 
 			continuousGestureDisplayed = true;
 			continuousGestureTime = Time.realtimeSinceStartup;
-		}
+		//}
 	}
 
 	public bool GestureCompleted(long userId, int userIndex, string gesture, float confidence)
@@ -62,7 +62,7 @@ public class SimpleVisualGestureListener : MonoBehaviour, VisualGestureListenerI
 
 			if(continuousInfo != null)
 			{
-				continuousInfo.text = string.Empty;
+				//continuousInfo.text = string.Empty;
 			}
 		}
 
@@ -72,7 +72,7 @@ public class SimpleVisualGestureListener : MonoBehaviour, VisualGestureListenerI
 			
 			if(discreteInfo != null)
 			{
-				discreteInfo.text = string.Empty;
+				//discreteInfo.text = string.Empty;
 			}
 		}
 	}
