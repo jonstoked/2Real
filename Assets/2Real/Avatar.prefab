@@ -80,7 +80,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4582149200964212}
   - component: {fileID: 137817526010361200}
-  - component: {fileID: 114510705203409596}
   - component: {fileID: 114686416240397774}
   m_Layer: 0
   m_Name: female
@@ -1021,23 +1020,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114510705203409596
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1194789665075790}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7faf9aa820bdd24488153356dbdab104, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerIndex: 0
-  joint: 11
-  jointPosition: {x: 0, y: 0, z: 0}
-  isSaving: 0
-  saveFilePath: joint_pos.csv
-  secondsToSave: 0
 --- !u!114 &114548384638001830
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1075,8 +1057,8 @@ MonoBehaviour:
   verticalMovement: 1
   externalRootMotion: 0
   externalHeadRotation: 0
-  externalHandRotations: 0
-  fingerOrientations: 0
+  externalHandRotations: 1
+  fingerOrientations: 1
   moveRate: 1
   smoothFactor: 0
   offsetNode: {fileID: 0}
@@ -1144,7 +1126,7 @@ SkinnedMeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 805c4d7a00aefd043bd7c9990c564787, type: 2}
+  - {fileID: 2100000, guid: db31bcae7b2b1f843a5e7af12b3cf047, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
