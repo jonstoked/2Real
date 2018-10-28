@@ -22,7 +22,7 @@ public class FishMovement : MonoBehaviour {
         float randomAngleZ = UnityEngine.Random.Range(-1f, 1f);
         direction = Quaternion.Euler(0, 0, randomAngleZ) * direction;
 
-        //transform.Translate(speed * direction * Time.deltaTime, Space.World);
+        transform.Translate(speed * direction * Time.deltaTime, Space.World);
 
         HandleAtUpperOrLowerBounds();
         HandleAtLeftOrRightBounds();
@@ -46,12 +46,17 @@ public class FishMovement : MonoBehaviour {
         if (transform.position.x > bounds.center.x + bounds.extents.x)
         {
             direction = Vector3.Reflect(direction, Vector3.left);
+            flipXDirection();
         }
         else if (transform.position.x < bounds.center.x - bounds.extents.x)
         {
             direction = Vector3.Reflect(direction, Vector3.right);
+            flipXDirection();
         }
-        
+    }
+
+    private void flipXDirection()
+    {
         Vector3 newScale = transform.localScale;
         newScale.x *= -1;
         transform.localScale = newScale;

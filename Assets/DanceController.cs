@@ -11,7 +11,7 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
     public bool chickenArms = false;
     public bool legUp = false;
     public bool squatting = false;
-    public bool handFace = false;
+    public bool handface = false;
 
     private int playerIndex = 0;
     private AvatarController avatarController;
