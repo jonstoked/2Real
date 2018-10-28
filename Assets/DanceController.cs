@@ -13,6 +13,8 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
     public bool squatting = false;
     public bool handface = false;
 
+    public GameObject backgroundCamera1;
+
     private int playerIndex = 0;
     private AvatarController avatarController;
     private AvatarScaler avatarScaler;
@@ -42,6 +44,7 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
         playerIndex = avatarController.playerIndex;
         jointTypeCount = Enum.GetValues(typeof(KinectInterop.JointType)).Length;
         previousJointPositions = new Vector3[jointTypeCount];
+        InvokeRepeating("ToggleCamera1", 3.0f, 3.0f);
     }
 
     void Update()
@@ -70,6 +73,13 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
                 }
             }
         }
+    }
+
+    void ToggleCamera1()
+    {
+        Camera camera = backgroundCamera1.GetComponent<Camera>();
+        camera.enabled = !camera.enabled;
+
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &4
 LightmapSettings:
@@ -402,7 +402,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4532621014464918, guid: d502787ce2f062a449a2796fbad25125, type: 2}
       propertyPath: m_RootOrder
-      value: 11
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 114566305830882244, guid: d502787ce2f062a449a2796fbad25125,
         type: 2}
@@ -423,6 +423,11 @@ Prefab:
       propertyPath: playerIndex
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114548384638001830, guid: d502787ce2f062a449a2796fbad25125,
+        type: 2}
+      propertyPath: backgroundCamera2
+      value: 
+      objectReference: {fileID: 1037289132}
     m_RemovedComponents:
     - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: d502787ce2f062a449a2796fbad25125, type: 2}
@@ -522,6 +527,11 @@ Prefab:
       propertyPath: rightHandCollider
       value: 
       objectReference: {fileID: 1032955652}
+    - target: {fileID: 114548384638001830, guid: d502787ce2f062a449a2796fbad25125,
+        type: 2}
+      propertyPath: backgroundCamera1
+      value: 
+      objectReference: {fileID: 1037289128}
     m_RemovedComponents:
     - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: d502787ce2f062a449a2796fbad25125, type: 2}
@@ -822,7 +832,7 @@ Behaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1037289128}
-  m_Enabled: 0
+  m_Enabled: 1
 --- !u!20 &1037289132
 Camera:
   m_ObjectHideFlags: 0
@@ -1063,7 +1073,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1378979705
 Prefab:
@@ -1102,7 +1112,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4532621014464918, guid: d502787ce2f062a449a2796fbad25125, type: 2}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 114566305830882244, guid: d502787ce2f062a449a2796fbad25125,
         type: 2}
