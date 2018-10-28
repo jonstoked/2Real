@@ -22,9 +22,11 @@ GameObject:
   - component: {fileID: 33100586488404320}
   - component: {fileID: 23017913061795414}
   - component: {fileID: 114000120404490020}
+  - component: {fileID: 65322175391217210}
+  - component: {fileID: 54381848779941030}
   m_Layer: 0
   m_Name: Mussel_prefab
-  m_TagString: Untagged
+  m_TagString: Fish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -84,6 +86,33 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1275044948922960}
   m_Mesh: {fileID: 4300000, guid: 173ac92001546074da63f790a49d22ce, type: 3}
+--- !u!54 &54381848779941030
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1275044948922960}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &65322175391217210
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1275044948922960}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5814628, y: 0.6531722, z: 0.36679047}
+  m_Center: {x: -0.0023888496, y: 0.049691763, z: 0.166065}
 --- !u!114 &114000120404490020
 MonoBehaviour:
   m_ObjectHideFlags: 1

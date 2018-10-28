@@ -15,6 +15,7 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
     private int playerIndex = 0;
     private AvatarController avatarController;
     private AvatarScaler avatarScaler;
+    private Renderer renderer;
     private int jointTypeCount;
     private Vector3[] previousJointPositions;
     private long lastDepthFrameTime;
@@ -25,6 +26,10 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
     public float handToShoulderDistanceLeft;
     public float handToShoulderDistanceRight;
 
+    public BoxCollider leftHandCollider;
+    public BoxCollider rightHandCollider;
+    public bool collidingWithFish = false;
+
     public Vector3 leftKnee;
     public Vector3 rightKnee;
 
@@ -32,6 +37,7 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
     {
         avatarController = GetComponent<AvatarController>();
         avatarScaler = GetComponent<AvatarScaler>();
+        renderer = GetComponentInChildren<Renderer>();
         playerIndex = avatarController.playerIndex;
         jointTypeCount = Enum.GetValues(typeof(KinectInterop.JointType)).Length;
         previousJointPositions = new Vector3[jointTypeCount];
@@ -54,6 +60,7 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
                     CheckForChickenArms();
                     checkForLegUp();
                     ScaleBodyParts();
+                    PositionHandColliders();
 
                     
 
@@ -61,6 +68,32 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
                 }
             }
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("collision detected");
+        if (collision.gameObject.tag == "Fish")
+        {
+            collidingWithFish = true;
+            var skinnedMeshRenderer = collision.gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
+            renderer.material = skinnedMeshRenderer.material;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "Fish")
+        {
+            collidingWithFish = false;
+        }
+    }
+
+    private void PositionHandColliders()
+    {
+        //convert to global hand positions to local space
+        leftHandCollider.center = transform.InverseTransformPoint(JointPos(7));
+        rightHandCollider.center = transform.InverseTransformPoint(JointPos(11));
     }
 
     public void UserDetected(long userId, int userIndex)
