@@ -11,6 +11,7 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
     public bool chickenArms = false;
     public bool legUp = false;
     public bool squatting = false;
+    public bool handface = false;
 
     private int playerIndex = 0;
     private AvatarController avatarController;
@@ -41,7 +42,7 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
     {
         manager = KinectManager.Instance;
         userId = manager.GetUserIdByIndex(playerIndex);
-
+        ScaleBodyParts();
         if (lastDepthFrameTime != manager.GetSensorData().lastDepthFrameTime) //only check joint velocity when depth data updates
         {
             lastDepthFrameTime = manager.GetSensorData().lastDepthFrameTime;
@@ -53,7 +54,8 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
                     CheckForHandsUp();
                     CheckForChickenArms();
                     checkForLegUp();
-                    ScaleBodyParts();
+                    CheckForHandFace();
+                    
 
                     
 
@@ -132,6 +134,18 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
         chickenArms = (handToShoulderDistanceLeft < 0.2f && handToShoulderDistanceRight < 0.2f);
     }
 
+    private void CheckForHandFace()
+    {
+        var leftHand = JointPos(7);
+        var rightHand = JointPos(11);
+        var head = JointPos(3);
+
+        var headToHandDistanceLeft = (leftHand - head).magnitude;
+        var headToHandDistanceRight = (rightHand - head).magnitude;
+
+        handface = (headToHandDistanceLeft < 0.2f && headToHandDistanceRight < 0.2f);
+    }
+
     private void checkForLegUp()
     {
         leftKnee = JointPos(13);
@@ -151,7 +165,7 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
 
     private void ScaleBodyParts()
     {
-        float scaleRate = .005f;
+        float scaleRate = .105f;
         if(handsUp)
         {
             avatarScaler.armScaleFactor += scaleRate;
@@ -160,11 +174,16 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
         if(chickenArms)
         {
             avatarScaler.armScaleFactor -= scaleRate;
-        }
+        }   
 
         if(squatting)
         {
             avatarScaler.legScaleFactor -= scaleRate;
+        }
+
+        if(handface)
+        {
+            avatarScaler.headScaleFactor += scaleRate;
         }
     }
 
@@ -218,12 +237,14 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
                 avatarScaler.bodyScaleFactor = 1.05f;
                 avatarScaler.armScaleFactor = 0.95f;
                 avatarScaler.legScaleFactor = 0.95f;
+                avatarScaler.headScaleFactor = 1f;
             }
             else if (gesture == KinectGestures.Gestures.Jump)
             {
                 avatarScaler.bodyScaleFactor = UnityEngine.Random.Range(0f, 2.0f);
                 avatarScaler.armScaleFactor = UnityEngine.Random.Range(0f, 2.0f);
                 avatarScaler.legScaleFactor = UnityEngine.Random.Range(0f, 2.0f);
+                avatarScaler.headScaleFactor = UnityEngine.Random.Range(0f, 2.0f);
             }
         }
         return true;
