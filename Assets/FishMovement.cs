@@ -6,7 +6,7 @@ using UnityEngine;
 public class FishMovement : MonoBehaviour {
 
     private Bounds bounds = new Bounds(new Vector3(0, 0, 2), new Vector3(4, 5, 2));
-    private float speed = 0.2f;
+    private float speed = 4f; // 0.08f;
     private Vector3 direction;
     private BoxCollider boxCollider;
 

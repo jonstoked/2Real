@@ -500,17 +500,17 @@ Prefab:
     - target: {fileID: 65865989500522872, guid: d502787ce2f062a449a2796fbad25125,
         type: 2}
       propertyPath: m_Size.x
-      value: 2
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 65865989500522872, guid: d502787ce2f062a449a2796fbad25125,
         type: 2}
       propertyPath: m_Size.y
-      value: 2
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 65865989500522872, guid: d502787ce2f062a449a2796fbad25125,
         type: 2}
       propertyPath: m_Size.z
-      value: 2
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 114548384638001830, guid: d502787ce2f062a449a2796fbad25125,
         type: 2}
@@ -801,7 +801,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!81 &1037289129
 AudioListener:
   m_ObjectHideFlags: 0

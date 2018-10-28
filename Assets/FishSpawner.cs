@@ -12,7 +12,7 @@ public class FishSpawner : MonoBehaviour {
     void Awake()
     {
         m_Instance = this;
-        InvokeRepeating("SpawnRandomFish", 3.0f, 3.0f);
+        InvokeRepeating("SpawnRandomFish", 6.0f, 6.0f);
 
     }
 
@@ -29,8 +29,14 @@ public class FishSpawner : MonoBehaviour {
     void SpawnRandomFish()
     {
         var randomFishPrefab = fishPrefabs[Random.Range(0, fishPrefabs.Count)];
-        Instantiate(randomFishPrefab, new Vector3(1, 1, 1.5f), Quaternion.identity);
+        var fish = Instantiate(randomFishPrefab, new Vector3(1, 1, 1.5f), Quaternion.identity);
+        fish.transform.localScale = new Vector3(.5f*fish.transform.localScale.x, .5f*fish.transform.localScale.y, .5f*fish.transform.localScale.z);
 
+    }
+
+    Vector3 RandomPositionAlongVerticalEdge()
+    {
+        return new Vector3(0, 0, 0);
     }
 
    }

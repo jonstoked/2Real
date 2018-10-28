@@ -1014,7 +1014,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.3, y: 0.3, z: 0.3}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65865989500522872
 BoxCollider:
@@ -1026,7 +1026,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.3, y: 0.3, z: 0.3}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &95447300580435824
 Animator:
@@ -1063,6 +1063,7 @@ MonoBehaviour:
   chickenArms: 0
   legUp: 0
   squatting: 0
+  handface: 0
   handToShoulderDistanceLeft: 0
   handToShoulderDistanceRight: 0
   leftHandCollider: {fileID: 65865989500522872}
@@ -1114,7 +1115,9 @@ MonoBehaviour:
   playerIndex: 0
   mirroredAvatar: 0
   bodyScaleFactor: 1.05
+  headScaleFactor: 1
   bodyWidthFactor: 0
+  headWidthFactor: 1
   armScaleFactor: 0.95
   legScaleFactor: 0.95
   continuousScaling: 1
