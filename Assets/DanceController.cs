@@ -78,7 +78,7 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
     void ToggleCamera1()
     {
         Camera camera = backgroundCamera1.GetComponent<Camera>();
-        camera.enabled = !camera.enabled;
+        //camera.enabled = !camera.enabled;
 
     }
 
@@ -104,8 +104,9 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
     private void PositionHandColliders()
     {
         //convert to global hand positions to local space
-        leftHandCollider.center = transform.InverseTransformPoint(JointPos(7));
+        //leftHandCollider.center = transform.InverseTransformPoint(JointPos(7));
         rightHandCollider.center = transform.InverseTransformPoint(JointPos(11));
+        leftHandCollider.center = rightHandCollider.center;
     }
 
     public void UserDetected(long userId, int userIndex)

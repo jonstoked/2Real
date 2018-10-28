@@ -12,7 +12,7 @@ public class FishSpawner : MonoBehaviour {
     void Awake()
     {
         m_Instance = this;
-        InvokeRepeating("SpawnRandomFish", 6.0f, 6.0f);
+        InvokeRepeating("SpawnRandomFish", 3.0f, 3.0f);
 
     }
 
@@ -29,14 +29,25 @@ public class FishSpawner : MonoBehaviour {
     void SpawnRandomFish()
     {
         var randomFishPrefab = fishPrefabs[Random.Range(0, fishPrefabs.Count)];
-        var fish = Instantiate(randomFishPrefab, new Vector3(1, 1, 1.5f), Quaternion.identity);
+        var fish = Instantiate(randomFishPrefab, new Vector3(-10,0,0), Quaternion.identity);
         fish.transform.localScale = new Vector3(.5f*fish.transform.localScale.x, .5f*fish.transform.localScale.y, .5f*fish.transform.localScale.z);
+        var fishMovementScript = fish.GetComponent<FishMovement>();
 
-    }
+        //set position and direction of fish
+        if (Random.Range(0, 2) == 0)
+        {
+            fish.transform.position = new Vector3(-2.4f, Random.Range(-2.4f,2.4f), 1.5f);
+            fishMovementScript.direction = Vector3.right;
+            fishMovementScript.flipXDirection();
+            //Debug.Log(fishMovementScript.direction);
+        }
+        else
+        {
+            fish.transform.position = new Vector3(2.4f, Random.Range(-2.4f, 2.4f), 1.5f);
+            fishMovementScript.direction = Vector3.left;
+            //Debug.Log(fishMovementScript.direction);
+        }
 
-    Vector3 RandomPositionAlongVerticalEdge()
-    {
-        return new Vector3(0, 0, 0);
     }
 
    }
