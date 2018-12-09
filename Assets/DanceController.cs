@@ -84,7 +84,6 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("collision detected");
         if (collision.gameObject.tag == "Fish")
         {
             collidingWithFish = true;
