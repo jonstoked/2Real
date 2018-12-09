@@ -330,7 +330,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100166, guid: f0e71211e326d5f42bcca6300ca95f4b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 100166, guid: f0e71211e326d5f42bcca6300ca95f4b, type: 3}
       propertyPath: m_Name
@@ -516,7 +516,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100166, guid: f0e71211e326d5f42bcca6300ca95f4b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0e71211e326d5f42bcca6300ca95f4b, type: 3}
@@ -1474,6 +1474,7 @@ MonoBehaviour:
   - {fileID: 1288170133788228, guid: b7c7fb408d1f5a04d85fb56f190c5407, type: 2}
   - {fileID: 1743343125409158, guid: c2a8d83255163a54a9a50badc638279a, type: 2}
   - {fileID: 1106387401300592, guid: 5cbc9e0573395474fa224b4c90bf3997, type: 2}
+  fishes: []
 --- !u!4 &1120548664
 Transform:
   m_ObjectHideFlags: 0
@@ -1598,7 +1599,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100166, guid: f0e71211e326d5f42bcca6300ca95f4b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 100166, guid: f0e71211e326d5f42bcca6300ca95f4b, type: 3}
       propertyPath: m_Name
@@ -1824,7 +1825,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100166, guid: f0e71211e326d5f42bcca6300ca95f4b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 100166, guid: f0e71211e326d5f42bcca6300ca95f4b, type: 3}
       propertyPath: m_Name
@@ -2086,7 +2087,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100166, guid: f0e71211e326d5f42bcca6300ca95f4b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 100166, guid: f0e71211e326d5f42bcca6300ca95f4b, type: 3}
       propertyPath: m_Name
@@ -2140,7 +2141,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100166, guid: f0e71211e326d5f42bcca6300ca95f4b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 100166, guid: f0e71211e326d5f42bcca6300ca95f4b, type: 3}
       propertyPath: m_Name
