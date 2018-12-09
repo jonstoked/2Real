@@ -36,8 +36,8 @@ public class FishSpawner : MonoBehaviour {
         fish.transform.localScale = new Vector3(.5f*fish.transform.localScale.x, .5f*fish.transform.localScale.y, .5f*fish.transform.localScale.z);
         var fishMovementScript = fish.GetComponent<FishMovement>();
 
-        PositionFishNextToRightHand(fish, fishMovementScript);
-        return;
+        // PositionFishNextToRightHand(fish, fishMovementScript);
+        // return;
 
         //set position and direction of fish
         if (Random.Range(0, 2) == 0)
