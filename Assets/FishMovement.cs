@@ -26,6 +26,13 @@ public class FishMovement : MonoBehaviour {
         
     }
 
+    public void Remove () {
+        //var fishSpawner = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects().FishMovement;
+        var fishSpawner = GameObject.Find("FishSpawner").GetComponent<FishSpawner>();
+        fishSpawner.fishes.Remove(gameObject);
+        Destroy(gameObject);
+    }
+
     private void HandleAtUpperOrLowerBounds()
     {
         if (transform.position.y > bounds.center.y + bounds.extents.y) //too high, move down
