@@ -8,7 +8,7 @@ public class GiftManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		InvokeRepeating("SpawnGift", 1.0f, 1.0f);
+		InvokeRepeating("SpawnGift", 5.0f, 5.0f);
 	}
 	
 	// Update is called once per frame
@@ -18,8 +18,10 @@ public class GiftManager : MonoBehaviour {
 
 	void SpawnGift() {
 		var randomPrefab = prefabs[Random.Range(0, prefabs.Count)];
-        var gift = Instantiate(randomPrefab, new Vector3(-10,0,0), Quaternion.identity);
-		gift.transform.position = new Vector3(Random.Range(-2.4f,2.4f), 2.4f, 1.5f);
+        
+		var gift = Instantiate(randomPrefab, new Vector3(-10,0,0), Quaternion.identity);
+		gift.transform.position = new Vector3(0, 1, 1.5f);
+		//gift.transform.position = new Vector3(Random.Range(-2.4f,2.4f), 2.4f, 1.5f);
 
 
 	}
