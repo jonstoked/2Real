@@ -7,6 +7,7 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
 {
     public float totalJointVelocity = 0;
     public float headVelocity = 0; //head is joint 3
+    public float initialHeadScale = 1.0f;
     public bool handsUp = false;
     public bool chickenArms = false;
     public bool legUp = false;
@@ -282,7 +283,7 @@ private void CheckForChickenArms()
                 avatarScaler.bodyScaleFactor = 1.05f;
                 avatarScaler.armScaleFactor = 0.95f;
                 avatarScaler.legScaleFactor = 0.95f;
-                avatarScaler.headScaleFactor = 1f;
+                avatarScaler.headScaleFactor = initialHeadScale;
             }
             else if (gesture == KinectGestures.Gestures.Jump)
             {
