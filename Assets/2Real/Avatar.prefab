@@ -1059,12 +1059,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalJointVelocity: 0
   headVelocity: 0
+  initialHeadScale: 1
   handsUp: 0
   chickenArms: 0
   legUp: 0
   squatting: 0
   handface: 0
   backgroundCamera1: {fileID: 0}
+  opposite: {fileID: 0}
   handToShoulderDistanceLeft: 0
   handToShoulderDistanceRight: 0
   leftHandCollider: {fileID: 65865989500522872}
@@ -1072,6 +1074,9 @@ MonoBehaviour:
   collidingWithFish: 0
   leftKnee: {x: 0, y: 0, z: 0}
   rightKnee: {x: 0, y: 0, z: 0}
+  avatars:
+  - {fileID: 9000000, guid: 3407b1dc86d75d448ae632980812f937, type: 3}
+  - {fileID: 9000000, guid: f0e71211e326d5f42bcca6300ca95f4b, type: 3}
 --- !u!114 &114566305830882244
 MonoBehaviour:
   m_ObjectHideFlags: 1

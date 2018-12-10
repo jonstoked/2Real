@@ -38,6 +38,9 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
     public Vector3 leftKnee;
     public Vector3 rightKnee;
 
+    public bool isSanta;
+
+
     private void Awake()
     {
         avatarController = GetComponent<AvatarController>();
@@ -75,6 +78,16 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
                 }
             }
         }
+    }
+
+    void SwapAvatar() {
+        var avatarManager = GameObject.Find("AvatarManager").GetComponent<AvatarManager>();
+        if(isSanta) {
+            avatarManager.makeLady(0);
+        } else {
+            avatarManager.makeSanta(0);
+        }
+
     }
 
     void ToggleCamera1()
@@ -290,6 +303,7 @@ private void CheckForChickenArms()
                 avatarScaler.armScaleFactor = 0.95f;
                 avatarScaler.legScaleFactor = 0.95f;
                 avatarScaler.headScaleFactor = initialHeadScale;
+                SwapAvatar();
             }
             else if (gesture == KinectGestures.Gestures.Jump)
             {

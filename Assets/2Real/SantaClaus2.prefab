@@ -1252,9 +1252,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4317966768246604}
   - component: {fileID: 95312892295698224}
-  - component: {fileID: 114566383947881896}
-  - component: {fileID: 114367019486665946}
   - component: {fileID: 114246507690288916}
+  - component: {fileID: 114367019486665946}
+  - component: {fileID: 114566383947881896}
   - component: {fileID: 65825406844708466}
   - component: {fileID: 65965061494554556}
   m_Layer: 0
@@ -2616,6 +2616,7 @@ MonoBehaviour:
   collidingWithFish: 0
   leftKnee: {x: 0, y: 0, z: 0}
   rightKnee: {x: 0, y: 0, z: 0}
+  isSanta: 1
 --- !u!137 &137056333692370730
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
