@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9583034}
   - component: {fileID: 54201688383169498}
   - component: {fileID: 114787590860545504}
+  - component: {fileID: 65572713853075958}
   m_Layer: 0
   m_Name: GiftC_PBR
   m_TagString: Untagged
@@ -119,6 +120,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &65572713853075958
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 190430}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.37742272, y: 0.2466926, z: 0.2788227}
+  m_Center: {x: 0.18547542, y: 0.1233463, z: -0.1387458}
 --- !u!114 &114787590860545504
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -130,3 +143,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebcad00a1f59c1648ac47bd483d6e983, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  candyCanePrefab: {fileID: 106374, guid: cec0e05e579732a44bc6487630b7eb9b, type: 2}
