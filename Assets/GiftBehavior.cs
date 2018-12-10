@@ -32,7 +32,7 @@ public class GiftBehavior : MonoBehaviour {
 
 	private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Avatar")
+        if (collision.gameObject.tag == "Avatar" || collision.gameObject.tag == "Santa")
         {
             CandyCaneSplosion();
 			Destroy(gameObject);            

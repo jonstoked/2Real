@@ -8,7 +8,7 @@ public class GiftManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		InvokeRepeating("SpawnGift", 120.0f, 120.0f);
+		InvokeRepeating("SpawnGift", 20.0f, 20.0f);
 	}
 	
 	// Update is called once per frame

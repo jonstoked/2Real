@@ -15,6 +15,7 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
     public bool handface = false;
 
     public GameObject backgroundCamera1;
+    public GameObject opposite;
 
     private int playerIndex = 0;
     private AvatarController avatarController;
