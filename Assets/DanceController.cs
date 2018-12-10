@@ -79,7 +79,7 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
     void ToggleCamera1()
     {
         Camera camera = backgroundCamera1.GetComponent<Camera>();
-        //camera.enabled = !camera.enabled;
+        camera.enabled = !camera.enabled;
 
     }
 
@@ -230,6 +230,11 @@ private void CheckForChickenArms()
         if (handface)
         {
             avatarScaler.headScaleFactor += scaleRate;
+        }
+
+        if (legUp)
+        {
+            ToggleCamera1();
         }
     }
 
