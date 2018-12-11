@@ -1258,7 +1258,7 @@ GameObject:
   - component: {fileID: 65825406844708466}
   - component: {fileID: 65965061494554556}
   m_Layer: 0
-  m_Name: SantaClaus2
+  m_Name: SantaClaus
   m_TagString: Santa
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

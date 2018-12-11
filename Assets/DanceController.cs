@@ -38,8 +38,6 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
     public Vector3 leftKnee;
     public Vector3 rightKnee;
 
-    public bool isSanta;
-
 
     private void Awake()
     {
@@ -49,7 +47,7 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
         playerIndex = avatarController.playerIndex;
         jointTypeCount = Enum.GetValues(typeof(KinectInterop.JointType)).Length;
         previousJointPositions = new Vector3[jointTypeCount];
-        InvokeRepeating("ToggleCamera1", 3.0f, 3.0f);
+        //InvokeRepeating("ToggleCamera1", 3.0f, 3.0f);
     }
 
     void Update()
@@ -82,12 +80,7 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
 
     void SwapAvatar() {
         var avatarManager = GameObject.Find("AvatarManager").GetComponent<AvatarManager>();
-        if(isSanta) {
-            avatarManager.makeLady(0);
-        } else {
-            avatarManager.makeSanta(0);
-        }
-
+        avatarManager.SwapAvatarAtIndex(playerIndex);
     }
 
     void ToggleCamera1()
@@ -248,7 +241,7 @@ private void CheckForChickenArms()
 
         if (legUp)
         {
-            ToggleCamera1();
+            // ToggleCamera1();
         }
     }
 
