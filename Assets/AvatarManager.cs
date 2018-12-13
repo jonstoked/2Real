@@ -69,7 +69,7 @@ public class AvatarManager : MonoBehaviour {
 			}
 		}
 		if(strongManCount == userCount) {
-			Trip();
+			//Trip();
 		}
 	}
 
