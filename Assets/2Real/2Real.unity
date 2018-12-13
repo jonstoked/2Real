@@ -251,6 +251,16 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114566383947881896, guid: 3c6f35eaaa929274aa0ebc9aa5db0a08,
+        type: 2}
+      propertyPath: isSanta
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114367019486665946, guid: 3c6f35eaaa929274aa0ebc9aa5db0a08,
+        type: 2}
+      propertyPath: playerIndex
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c6f35eaaa929274aa0ebc9aa5db0a08, type: 2}
   m_IsPrefabAsset: 0
@@ -311,6 +321,16 @@ Prefab:
         type: 2}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114566383947881896, guid: 3c6f35eaaa929274aa0ebc9aa5db0a08,
+        type: 2}
+      propertyPath: isSanta
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114367019486665946, guid: 3c6f35eaaa929274aa0ebc9aa5db0a08,
+        type: 2}
+      propertyPath: playerIndex
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c6f35eaaa929274aa0ebc9aa5db0a08, type: 2}
@@ -490,6 +510,11 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114566383947881896, guid: 3c6f35eaaa929274aa0ebc9aa5db0a08,
+        type: 2}
+      propertyPath: isSanta
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c6f35eaaa929274aa0ebc9aa5db0a08, type: 2}
   m_IsPrefabAsset: 0
@@ -597,6 +622,7 @@ MonoBehaviour:
   - {fileID: 877516175}
   - {fileID: 386089412}
   - {fileID: 838817358}
+  backgroundCamera1: {fileID: 1037289128}
 --- !u!4 &619881777
 Transform:
   m_ObjectHideFlags: 0
@@ -1326,6 +1352,16 @@ Prefab:
         type: 2}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114566383947881896, guid: 3c6f35eaaa929274aa0ebc9aa5db0a08,
+        type: 2}
+      propertyPath: isSanta
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114367019486665946, guid: 3c6f35eaaa929274aa0ebc9aa5db0a08,
+        type: 2}
+      propertyPath: playerIndex
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c6f35eaaa929274aa0ebc9aa5db0a08, type: 2}

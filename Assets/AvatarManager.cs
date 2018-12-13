@@ -5,24 +5,27 @@ using UnityEngine;
 public class AvatarManager : MonoBehaviour {
 
 	public List<GameObject> santas;
-
 	public List<GameObject> ladies;
+	public GameObject backgroundCamera1;
 	private KinectManager kinectManager;
+
+	private bool tripping = false;
+	
 
 	void Start () {
 		kinectManager = GameObject.Find("KinectController").GetComponent<KinectManager>();
 	}
 	
 	void Update () {
-		
+		CheckForStrongMen();
 	}
 
 	public void SwapAvatarAtIndex(int playerIndex) {
 		var r = ladies[playerIndex].GetComponentInChildren<SkinnedMeshRenderer>();
-			bool isLady = r.enabled;
+		bool isLady = r.enabled;
 		if(isLady) {
-			showSantaAtIndex(playerIndex,true);
 			showLadyAtIndex(playerIndex,false);
+			showSantaAtIndex(playerIndex,true);
 		} else {
 			showSantaAtIndex(playerIndex,false);
 			showLadyAtIndex(playerIndex,true);
@@ -34,58 +37,56 @@ public class AvatarManager : MonoBehaviour {
 		foreach (SkinnedMeshRenderer r in santa.GetComponentsInChildren<SkinnedMeshRenderer>()) {
 			r.enabled = show;
 		}
-		var lady = ladies[playerIndex];
-		lady.GetComponentInChildren<DanceController>().enabled = !show;
+		var danceController = santa.GetComponentInChildren<DanceController>();
+		if (show) {
+			kinectManager.gestureListeners.Add(danceController);
+		} else {
+			kinectManager.gestureListeners.Remove(danceController);
+		}
+		danceController.enabled = show;
 	}
 
 	public void showLadyAtIndex(int playerIndex, bool show) {
 		var lady = ladies[playerIndex];
 		lady.GetComponentInChildren<SkinnedMeshRenderer>().enabled = show;
-		var santa = santas[playerIndex];
-		santa.GetComponentInChildren<DanceController>().enabled = !show;
+		var danceController = lady.GetComponentInChildren<DanceController>();
+		if (show) {
+			kinectManager.gestureListeners.Add(danceController);
+		} else {
+			kinectManager.gestureListeners.Remove(danceController);
+		}
+
+		danceController.enabled = show;
 	}
 
-	// public void makeLady(int playerIndex) {
-	// 	DestroyPlayerAtIndex(playerIndex);
+	void CheckForStrongMen() {
+		int userCount = kinectManager.GetUsersCount();
+		int strongManCount = 0;
+		foreach(AvatarController ac in kinectManager.avatarControllers) {
+			DanceController danceController = ac.gameObject.GetComponent<DanceController>();
+			if (danceController.enabled && danceController.strongMan) {
+				strongManCount++;
+			}
+		}
+		if(strongManCount == userCount) {
+			Trip();
+		}
+	}
 
-	// 	var nextAvatar = Instantiate(ladyPrefab, new Vector3(-10,0,0), Quaternion.identity);
-	// 	var nextAvatarController = nextAvatar.GetComponent<AvatarController>();
-	// 	nextAvatarController.playerIndex = playerIndex;
-	// 	nextAvatarController.posRelativeToCamera = Camera.main;
-		
-	// 	kinectManager.avatarControllers.Add(nextAvatarController);
-	// 	kinectManager.RefreshAvatarUserIds();
-	// }
+	void Trip()
+    {
+		if(!tripping) {
+			tripping = true;
+        	Camera camera = backgroundCamera1.GetComponent<Camera>();
+        	camera.enabled = false;
+			Invoke("UnTrip", 10);
+		}
+    }
 
-	// public void makeSanta(int playerIndex) {
-	// 	DestroyPlayerAtIndex(playerIndex);
-
-	// 	var nextAvatar = Instantiate(santaPrefab, new Vector3(-10,0,0), Quaternion.identity);
-	// 	nextAvatar.transform.Rotate(0,180,0);
-
-	// 	var nextAvatarController = nextAvatar.GetComponent<AvatarController>();
-	// 	nextAvatarController.playerIndex = playerIndex;
-	// 	nextAvatarController.posRelativeToCamera = Camera.main;
-		
-	// 	nextAvatar.GetComponent<DanceController>().isSanta = true;
-	// 	var dc = nextAvatar.GetComponent<DanceController>();
-	// 	kinectManager.avatarControllers.Add(nextAvatarController);
-	// 	kinectManager.RefreshAvatarUserIds();
-	// }
-
-	// private void DestroyPlayerAtIndex(int playerIndex) {
-	// 	AvatarController currentAvatarController = null;
-	// 	foreach (AvatarController ac in kinectManager.avatarControllers) {
-	// 		if (ac.playerIndex == playerIndex) {
-	// 			currentAvatarController = ac;
-	// 		}
-	// 	}
-	// 	if(!currentAvatarController) return;
-
-	// 	kinectManager.avatarControllers.Remove(currentAvatarController);
-	// 	//Destroy(currentAvatarController.gameObject);
-	// 	currentAvatarController.gameObject.SetActive(false);
-	// }
-
+	void UnTrip() {
+		tripping = false;
+		Camera camera = backgroundCamera1.GetComponent<Camera>();
+        camera.enabled = true;
+	}
 
 }

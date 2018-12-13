@@ -13,6 +13,7 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
     public bool legUp = false;
     public bool squatting = false;
     public bool handface = false;
+    public bool strongMan = false;
 
     public GameObject backgroundCamera1;
     public GameObject opposite;
@@ -38,6 +39,8 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
     public Vector3 leftKnee;
     public Vector3 rightKnee;
 
+    public bool isSanta;
+
 
     private void Awake()
     {
@@ -47,7 +50,6 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
         playerIndex = avatarController.playerIndex;
         jointTypeCount = Enum.GetValues(typeof(KinectInterop.JointType)).Length;
         previousJointPositions = new Vector3[jointTypeCount];
-        //InvokeRepeating("ToggleCamera1", 3.0f, 3.0f);
     }
 
     void Update()
@@ -69,10 +71,7 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
                     CheckForHandFace();
                     ScaleBodyParts();
                     PositionHandColliders();
-
-                    
-
-
+                    CheckForStrongMan();
                 }
             }
         }
@@ -169,7 +168,7 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
         var leftShoulderPosition = JointPos(4);
         var rightShoulderPosition = JointPos(8);
 
-        float diffFactor = 1.3f;
+        float diffFactor = 1.4f;
 
         handsUp = (leftHandPosition.y > leftShoulderPosition.y * diffFactor && rightHandPosition.y > rightShoulderPosition.y * diffFactor);
     }
@@ -207,6 +206,24 @@ private void CheckForChickenArms()
         float diffFactor = 1.5f;
 
         legUp = (rightKnee.y > leftKnee.y * diffFactor || leftKnee.y > rightKnee.y * diffFactor);
+    }
+
+    public float shoulderToElbowHeightDiffLeft;
+    public float shoulderToElbowHeightDiffRight;
+    private void CheckForStrongMan()
+    {
+        var leftShoulderPosition = JointPos(4);
+        var rightShoulderPosition = JointPos(8);
+
+        var leftElbowPosition = JointPos(5);
+        var rightElbowPosition = JointPos(9);
+
+        shoulderToElbowHeightDiffLeft = leftElbowPosition.y - leftShoulderPosition.y;
+        shoulderToElbowHeightDiffRight = rightElbowPosition.y - rightShoulderPosition.y;
+
+        float fudgeFactor = 0.1f;
+        
+        strongMan = Mathf.Abs(shoulderToElbowHeightDiffLeft) < fudgeFactor && Mathf.Abs(shoulderToElbowHeightDiffRight) < fudgeFactor;
     }
 
     private void CheckForSquat()
@@ -288,15 +305,23 @@ private void CheckForChickenArms()
 
     public bool GestureCompleted(long userId, int userIndex, KinectGestures.Gestures gesture, KinectInterop.JointType joint, Vector3 screenPos)
     {
-        if (userIndex == this.playerIndex)
+        if (userIndex == this.playerIndex && enabled)
         {
             if (gesture == KinectGestures.Gestures.Wave)
             {
-                avatarScaler.bodyScaleFactor = 1.05f;
-                avatarScaler.armScaleFactor = 0.95f;
-                avatarScaler.legScaleFactor = 0.95f;
-                avatarScaler.headScaleFactor = initialHeadScale;
+                if(!isSanta) {
+                    avatarScaler.bodyScaleFactor = 1.05f;
+                    avatarScaler.armScaleFactor = 0.95f;
+                    avatarScaler.legScaleFactor = 0.95f;
+                    avatarScaler.headScaleFactor = initialHeadScale;
+                } else {
+                    avatarScaler.bodyScaleFactor = 1f;
+                    avatarScaler.armScaleFactor = 1f;
+                    avatarScaler.legScaleFactor = 1f;
+                    avatarScaler.headScaleFactor = 0.2f;
+                }
                 SwapAvatar();
+
             }
             else if (gesture == KinectGestures.Gestures.Jump)
             {
