@@ -1,20 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class AvatarManager : MonoBehaviour {
 
 	public List<GameObject> santas;
 	public List<GameObject> ladies;
+    public GameObject plane;
 	public GameObject backgroundCamera1;
 	private KinectManager kinectManager;
+    WebCamTexture webCamTexture;
+    int photoNumber = 0;
 
-	private bool tripping = false;
+    private bool tripping = false;
 	
 
 	void Start () {
 		kinectManager = GameObject.Find("KinectController").GetComponent<KinectManager>();
-	}
+        webCamTexture = new WebCamTexture();
+        webCamTexture.deviceName = "Kinect V2 Video Sensor";
+        plane.GetComponentInChildren<Renderer>().material.mainTexture = webCamTexture;
+        plane.GetComponentInChildren<Renderer>().enabled = false;
+        webCamTexture.Play();
+    }
 	
 	void Update () {
 		CheckForStrongMen();
@@ -68,18 +77,48 @@ public class AvatarManager : MonoBehaviour {
 				strongManCount++;
 			}
 		}
-		if(strongManCount == userCount) {
-			//Trip();
+		if(strongManCount == userCount && userCount > 0 && backgroundCamera1.GetComponent<Camera>().enabled == true) {
+            PreparePhoto();
 		}
 	}
 
-	void Trip()
+
+    void TakePhoto()
     {
-		if(!tripping) {
-			tripping = true;
+        Debug.Log("PHOTOS: " + Application.persistentDataPath + "/photo" + photoNumber + ".png");
+
+        Texture2D photo = new Texture2D(webCamTexture.width, webCamTexture.height);
+        photo.SetPixels(webCamTexture.GetPixels());
+        photo.Apply();
+
+        //Encode to a PNG
+        byte[] bytes = photo.EncodeToPNG();
+        //Write out the PNG. Of course you have to substitute your_path for something sensible
+        File.WriteAllBytes(Application.persistentDataPath + "/photo" + photoNumber + ".png", bytes);
+        photoNumber++;
+    }
+
+    void PreparePhoto()
+    {
+        plane.GetComponentInChildren<Renderer>().enabled = true;
+        Invoke("StopRenderer", 3);
+    }
+
+    void StopRenderer()
+    {
+        plane.GetComponentInChildren<Renderer>().enabled = false;
+        Invoke("Trip", 1);
+    }
+
+    void Trip()
+    {
+        
+        if (!tripping) {
+            tripping = true;
         	Camera camera = backgroundCamera1.GetComponent<Camera>();
         	camera.enabled = false;
-			Invoke("UnTrip", 10);
+            Invoke("TakePhoto", 4);
+            Invoke("UnTrip", 10);
 		}
     }
 
@@ -88,5 +127,4 @@ public class AvatarManager : MonoBehaviour {
 		Camera camera = backgroundCamera1.GetComponent<Camera>();
         camera.enabled = true;
 	}
-
 }
