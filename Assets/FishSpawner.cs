@@ -12,7 +12,7 @@ public class FishSpawner : MonoBehaviour {
     void Awake()
     {
         m_Instance = this;
-        // InvokeRepeating("SpawnRandomFish", 3.0f, 3.0f);
+        InvokeRepeating("SpawnRandomFish", 3.0f, 3.0f);
     }
 
     void OnDestroy()

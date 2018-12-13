@@ -6,12 +6,16 @@ using UnityEngine;
 public class FishMovement : MonoBehaviour {
 
     private Bounds bounds = new Bounds(new Vector3(0, 0, 2), new Vector3(5, 5, 2));
-    private float speed = 0.08f;
+    private float speed = 0.12f; // 0.08f;
     public Vector3 direction;
     private BoxCollider boxCollider;
+    private TrailRenderer trailRenderer;
+
+    private bool freakingOut = false;
 
     void Start () {
-
+        trailRenderer = GetComponent<TrailRenderer>();
+        trailRenderer.enabled = false;
     }
 
     void Update () {
@@ -21,9 +25,20 @@ public class FishMovement : MonoBehaviour {
 
         transform.Translate(speed * direction * Time.deltaTime, Space.World);
 
-        HandleAtUpperOrLowerBounds();
-        HandleAtLeftOrRightBounds();
+        if(!freakingOut) {
+            HandleAtUpperOrLowerBounds();
+            HandleAtLeftOrRightBounds();
+        }
         
+    }
+
+    public void FreakOut() {
+        if(!freakingOut) {
+            freakingOut = true;
+            trailRenderer.enabled = true;
+            speed *= 50;
+            Invoke("Remove", 4);
+        }
     }
 
     public void Remove () {
