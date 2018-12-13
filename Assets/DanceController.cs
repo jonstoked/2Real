@@ -96,7 +96,7 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
             var fish = collision.gameObject;
             var skinnedMeshRenderer = fish.GetComponentInChildren<SkinnedMeshRenderer>();
             renderer.material = skinnedMeshRenderer.material;
-            fish.GetComponent<FishMovement>().Remove();            
+            fish.GetComponent<FishMovement>().FreakOut();            
         }
     }
 
