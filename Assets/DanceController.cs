@@ -17,8 +17,8 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
 
     public GameObject backgroundCamera1;
     public GameObject opposite;
+    public int playerIndex = 0;
 
-    private int playerIndex = 0;
     private AvatarController avatarController;
     private AvatarScaler avatarScaler;
     private Renderer renderer;
@@ -41,15 +41,12 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
 
     public bool isSanta;
 
-    private AvatarManager avatarManager;
-
 
     private void Awake()
     {
         avatarController = GetComponent<AvatarController>();
         avatarScaler = GetComponent<AvatarScaler>();
         renderer = GetComponentInChildren<Renderer>();
-        avatarManager = GameObject.Find("AvatarManager").GetComponent<AvatarManager>();
         playerIndex = avatarController.playerIndex;
         jointTypeCount = Enum.GetValues(typeof(KinectInterop.JointType)).Length;
         previousJointPositions = new Vector3[jointTypeCount];
@@ -81,6 +78,7 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
     }
 
     void SwapAvatar() {
+        var avatarManager = GameObject.Find("AvatarManager").GetComponent<AvatarManager>();
         avatarManager.SwapAvatarAtIndex(playerIndex);
     }
 
@@ -121,20 +119,12 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
 
     public void UserDetected(long userId, int userIndex)
     {
-        if (userIndex != playerIndex)
-			return;
-
         // the gestures are allowed for the primary user only
         KinectManager manager = KinectManager.Instance;
 
         // detect these user specific gestures
         manager.DetectGesture(userId, KinectGestures.Gestures.Jump);
         manager.DetectGesture(userId, KinectGestures.Gestures.Wave);
-
-        if(!isSanta) {
-            avatarManager.showSantaAtIndex(playerIndex,false);
-			avatarManager.showLadyAtIndex(playerIndex,true);
-        }
     }
 
     public void UserLost(long userId, int userIndex)
@@ -336,7 +326,6 @@ private void CheckForChickenArms()
                     avatarScaler.legScaleFactor = 1f;
                     avatarScaler.headScaleFactor = 0.2f;
                 }
-                SwapAvatar();
 
             }
             else if (gesture == KinectGestures.Gestures.Jump)

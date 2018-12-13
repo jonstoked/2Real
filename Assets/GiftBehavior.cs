@@ -34,10 +34,15 @@ public class GiftBehavior : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Avatar" || collision.gameObject.tag == "Santa")
         {
-            CandyCaneSplosion();
-			Destroy(gameObject);            
+            Destroy(gameObject);
+            AvatarManager avatarManager = GameObject.Find("AvatarManager").GetComponent<AvatarManager>();
+            DanceController danceController = collision.gameObject.GetComponent<DanceController>();
+            Debug.Log("Entered Collision With " + collision.gameObject.tag + " at index " + danceController.playerIndex); 
+            avatarManager.SwapAvatarAtIndex(danceController.playerIndex);
+            //CandyCaneSplosion();          
         }
     }
+
 
 	void CandyCaneSplosion() {
 		for (int i = 0; i < 40; ++i) {
