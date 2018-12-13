@@ -133,7 +133,7 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
 			return;
 
 		if(isSanta) {
-            SwapAvatar();
+            //SwapAvatar();
         }
 	}
 
@@ -178,7 +178,7 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
         var leftShoulderPosition = JointPos(4);
         var rightShoulderPosition = JointPos(8);
 
-        float diffFactor = 1.4f;
+        float diffFactor = 1.3f;
 
         handsUp = (leftHandPosition.y > leftShoulderPosition.y * diffFactor && rightHandPosition.y > rightShoulderPosition.y * diffFactor);
     }
