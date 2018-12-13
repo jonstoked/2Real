@@ -7,7 +7,6 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
 {
     public float totalJointVelocity = 0;
     public float headVelocity = 0; //head is joint 3
-    public float initialHeadScale = 1.0f;
     public bool handsUp = false;
     public bool chickenArms = false;
     public bool legUp = false;
@@ -142,13 +141,13 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
 		if (userIndex != playerIndex)
 			return;
 
+        ResetLadyScales();
+        ResetSantaScales();
+
 		if(isSanta) {
             SwapAvatar();
         }
 	}
-
-
-
 
     /* public enum JointType : int
      {
@@ -325,19 +324,12 @@ private void CheckForChickenArms()
         {
             if (gesture == KinectGestures.Gestures.Wave)
             {
-                if(!isSanta) {
-                    avatarScaler.bodyScaleFactor = 1.05f;
-                    avatarScaler.armScaleFactor = 0.95f;
-                    avatarScaler.legScaleFactor = 0.95f;
-                    avatarScaler.headScaleFactor = initialHeadScale;
+                if(isSanta) {
+                    ResetSantaScales();
                 } else {
-                    avatarScaler.bodyScaleFactor = 1f;
-                    avatarScaler.armScaleFactor = 1f;
-                    avatarScaler.legScaleFactor = 1f;
-                    avatarScaler.headScaleFactor = 0.2f;
+                    ResetLadyScales();
                 }
                 SwapAvatar();
-
             }
             else if (gesture == KinectGestures.Gestures.Jump)
             {
@@ -353,6 +345,19 @@ private void CheckForChickenArms()
     public bool GestureCancelled(long userId, int userIndex, KinectGestures.Gestures gesture, KinectInterop.JointType joint)
     {
         return true;
+    }
+
+    void ResetLadyScales() {
+        avatarScaler.bodyScaleFactor = 1.05f;
+        avatarScaler.armScaleFactor = 0.95f;
+        avatarScaler.legScaleFactor = 0.95f;
+        avatarScaler.headScaleFactor = 1f;
+    }
+    void ResetSantaScales() {
+        avatarScaler.bodyScaleFactor = 1f;
+        avatarScaler.armScaleFactor = 1f;
+        avatarScaler.legScaleFactor = 1f;
+        avatarScaler.headScaleFactor = 0.2f;
     }
 }
 
