@@ -127,6 +127,16 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
         manager.DetectGesture(userId, KinectGestures.Gestures.Wave);
     }
 
+    public void UserLost(long userId, int userIndex)
+	{
+		if (userIndex != playerIndex)
+			return;
+
+		if(isSanta) {
+            SwapAvatar();
+        }
+	}
+
 
 
 
@@ -293,10 +303,6 @@ private void CheckForChickenArms()
                 previousJointPositions[i] = jointPos;
             }
         }
-    }
-
-    public void UserLost(long userId, int userIndex)
-    {
     }
 
     public void GestureInProgress(long userId, int userIndex, KinectGestures.Gestures gesture, float progress, KinectInterop.JointType joint, Vector3 screenPos)
