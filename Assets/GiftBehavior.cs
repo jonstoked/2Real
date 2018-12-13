@@ -39,7 +39,7 @@ public class GiftBehavior : MonoBehaviour {
             DanceController danceController = collision.gameObject.GetComponent<DanceController>();
             Debug.Log("Entered Collision With " + collision.gameObject.tag + " at index " + danceController.playerIndex); 
             avatarManager.SwapAvatarAtIndex(danceController.playerIndex);
-            //CandyCaneSplosion();          
+            CandyCaneSplosion();          
         }
     }
 
