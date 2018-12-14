@@ -12,6 +12,7 @@ public class FishMovement : MonoBehaviour {
     private TrailRenderer trailRenderer;
 
     private bool freakingOut = false;
+    private bool shouldStayInBounds = true;
 
     void Start () {
         trailRenderer = GetComponent<TrailRenderer>();
@@ -25,7 +26,7 @@ public class FishMovement : MonoBehaviour {
 
         transform.Translate(speed * direction * Time.deltaTime, Space.World);
 
-        if(!freakingOut) {
+        if(shouldStayInBounds) {
             HandleAtUpperOrLowerBounds();
             HandleAtLeftOrRightBounds();
         }
@@ -37,8 +38,13 @@ public class FishMovement : MonoBehaviour {
             freakingOut = true;
             trailRenderer.enabled = true;
             speed *= 50;
+            Invoke("IgnoreBounds",2);
             Invoke("Remove", 4);
         }
+    }
+
+    private void IgnoreBounds() {
+        shouldStayInBounds = false;
     }
 
     public void Remove () {
