@@ -28,19 +28,19 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
     private KinectManager manager;
     private long userId; //I believe this needs to be updated each frame.  I don't think it always correlates with playerIndex
 
-    public float handToShoulderDistanceLeft;
-    public float handToShoulderDistanceRight;
+    private float handToShoulderDistanceLeft;
+    private float handToShoulderDistanceRight;
 
     public BoxCollider leftHandCollider;
     public BoxCollider rightHandCollider;
-    public bool collidingWithFish = false;
-
-    public Vector3 leftKnee;
-    public Vector3 rightKnee;
+    private Vector3 leftKnee;
+    private Vector3 rightKnee;
 
     public bool isSanta;
 
     private AvatarManager avatarManager;
+
+    public bool oneHandUp;
 
 
     private void Awake()
@@ -74,6 +74,7 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
                     ScaleBodyParts();
                     PositionHandColliders();
                     CheckForStrongMan();
+                    CheckForOneHandUp();
                 }
             }
         }
@@ -93,7 +94,6 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
     {
         if (collision.gameObject.tag == "Fish")
         {
-            collidingWithFish = true;
             var fish = collision.gameObject;
             var skinnedMeshRenderer = fish.GetComponentInChildren<SkinnedMeshRenderer>();
             renderer.material = skinnedMeshRenderer.material;
@@ -103,10 +103,6 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
 
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.tag == "Fish")
-        {
-            collidingWithFish = false;
-        }
     }
 
     private void PositionHandColliders()
@@ -185,6 +181,21 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
         handsUp = (leftHandPosition.y > leftShoulderPosition.y * diffFactor && rightHandPosition.y > rightShoulderPosition.y * diffFactor);
     }
 
+    private void CheckForOneHandUp() {
+         var leftHandPosition = JointPos(7);
+        var rightHandPosition = JointPos(11);
+
+        var leftShoulderPosition = JointPos(4);
+        var rightShoulderPosition = JointPos(8);
+
+        float diffFactor = 1.5f;
+
+        var leftHandUpOnly = (leftHandPosition.y > leftShoulderPosition.y * diffFactor && rightHandPosition.y < rightShoulderPosition.y);
+        var rightHandUpOnly = (rightHandPosition.y > rightShoulderPosition.y * diffFactor && leftHandPosition.y < leftShoulderPosition.y);
+
+        oneHandUp = leftHandUpOnly || rightHandUpOnly;
+    }
+
     private void CheckForHandFace()
     {
         var leftHand = JointPos(7);
@@ -220,8 +231,8 @@ private void CheckForChickenArms()
         legUp = (rightKnee.y > leftKnee.y * diffFactor || leftKnee.y > rightKnee.y * diffFactor);
     }
 
-    public float shoulderToElbowHeightDiffLeft;
-    public float shoulderToElbowHeightDiffRight;
+    private float shoulderToElbowHeightDiffLeft;
+    private float shoulderToElbowHeightDiffRight;
     private void CheckForStrongMan()
     {
         var leftShoulderPosition = JointPos(4);
@@ -240,9 +251,10 @@ private void CheckForChickenArms()
 
     private void CheckForSquat()
     {
-        //leftFoot = JointPos(15);
-        //rightFoot = JointPos(19);
-        //leftFootToSpineBaseDistance = (JointPos())
+        // var leftFoot = JointPos(15);
+        // var rightFoot = JointPos(19);
+        // var spineBase = JointPos(0);
+        
     }
 
     private void ScaleBodyParts()

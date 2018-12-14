@@ -30,7 +30,7 @@ public class AvatarManager : MonoBehaviour {
     }
 	
 	void Update () {
-		CheckForStrongMen();
+		CheckForGroupPose();
 	}
 
 	public void SwapAvatarAtIndex(int playerIndex) {
@@ -72,16 +72,16 @@ public class AvatarManager : MonoBehaviour {
 		danceController.enabled = show;
 	}
 
-	void CheckForStrongMen() {
+	void CheckForGroupPose() {
 		int userCount = kinectManager.GetUsersCount();
-		int strongManCount = 0;
+		int posedCount = 0;
 		foreach(AvatarController ac in kinectManager.avatarControllers) {
 			DanceController danceController = ac.gameObject.GetComponent<DanceController>();
-			if (danceController.enabled && danceController.strongMan) {
-				strongManCount++;
+			if (danceController.enabled && danceController.oneHandUp) {
+				posedCount++;
 			}
 		}
-		if(strongManCount == userCount && userCount > 0 && backgroundCamera1.GetComponent<Camera>().enabled == true) {
+		if(posedCount == userCount && userCount > 0 && backgroundCamera1.GetComponent<Camera>().enabled == true) {
             PreparePhoto();
 		}
 	}
