@@ -40,12 +40,15 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
 
     public bool isSanta;
 
+    private AvatarManager avatarManager;
+
 
     private void Awake()
     {
         avatarController = GetComponent<AvatarController>();
         avatarScaler = GetComponent<AvatarScaler>();
         renderer = GetComponentInChildren<Renderer>();
+        avatarManager = GameObject.Find("AvatarManager").GetComponent<AvatarManager>();
         playerIndex = avatarController.playerIndex;
         jointTypeCount = Enum.GetValues(typeof(KinectInterop.JointType)).Length;
         previousJointPositions = new Vector3[jointTypeCount];
@@ -77,7 +80,6 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
     }
 
     void SwapAvatar() {
-        var avatarManager = GameObject.Find("AvatarManager").GetComponent<AvatarManager>();
         avatarManager.SwapAvatarAtIndex(playerIndex);
     }
 
@@ -85,7 +87,6 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
     {
         Camera camera = backgroundCamera1.GetComponent<Camera>();
         camera.enabled = !camera.enabled;
-
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -111,9 +112,8 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
     private void PositionHandColliders()
     {
         //convert to global hand positions to local space
-        //leftHandCollider.center = transform.InverseTransformPoint(JointPos(7));
+        leftHandCollider.center = transform.InverseTransformPoint(JointPos(7));
         rightHandCollider.center = transform.InverseTransformPoint(JointPos(11));
-        leftHandCollider.center = rightHandCollider.center;
     }
 
     public void UserDetected(long userId, int userIndex)
@@ -124,6 +124,9 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
         // detect these user specific gestures
         manager.DetectGesture(userId, KinectGestures.Gestures.Jump);
         manager.DetectGesture(userId, KinectGestures.Gestures.Wave);
+
+        avatarManager.showSantaAtIndex(userIndex,false);
+		avatarManager.showLadyAtIndex(userIndex,true);
     }
 
     public void UserLost(long userId, int userIndex)
@@ -135,7 +138,7 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
         ResetSantaScales();
 
 		if(isSanta) {
-            //SwapAvatar();
+            SwapAvatar();
         }
 	}
 
