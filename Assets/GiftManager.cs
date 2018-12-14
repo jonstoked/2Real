@@ -8,8 +8,8 @@ public class GiftManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		float giftInterval = 5f; //45f
-		// InvokeRepeating("SpawnGift", giftInterval, giftInterval);
+		float giftInterval = 25f; //45f
+		InvokeRepeating("SpawnGift", giftInterval, giftInterval);
 	}
 	
 	// Update is called once per frame

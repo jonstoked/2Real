@@ -21,9 +21,9 @@ public class AvatarManager : MonoBehaviour {
 	
 	void Update () {
 		CheckForGroupPose();
-        if(Input.GetKeyDown(KeyCode.A))
+        if(Input.GetKeyDown(KeyCode.A) && tripping == false)
         {
-            PreparePhoto();
+            Trip();
         }
     }
 
@@ -79,42 +79,36 @@ public class AvatarManager : MonoBehaviour {
 		Debug.Log(userCount);
 		if(posedCount == userCount && userCount > 0 && tripping == false) {
             tripping = true;
-            PreparePhoto();
+            Trip();
 		}
 	}
 
 
     public void TakePhoto()
     {
-       var keyCapture = GameObject.Find("KeyCommander").GetComponent<KeyCapture>();
+        var keyCapture = GameObject.Find("KeyCommander").GetComponent<KeyCapture>();
+        keyCapture.showCamera(false);
         keyCapture.TakePhoto();
     }
 
-    void PreparePhoto()
+    void ShowCamera()
     {
         var keyCapture = GameObject.Find("KeyCommander").GetComponent<KeyCapture>();
         keyCapture.showCamera(true);
-        Invoke("StopRenderer", 4);
-    }
-
-    void StopRenderer()
-    {
-        var keyCapture = GameObject.Find("KeyCommander").GetComponent<KeyCapture>();
-        keyCapture.showCamera(false);
-        Invoke("Trip", 1);
     }
 
     void Trip()
     {
         	Camera camera = backgroundCamera1.GetComponent<Camera>();
         	camera.enabled = false;
-            Invoke("TakePhoto", 4);
+            Invoke("ShowCamera", 6);
             Invoke("UnTrip", 10);
     }
 
 	void UnTrip() {
-		tripping = false;
 		Camera camera = backgroundCamera1.GetComponent<Camera>();
         camera.enabled = true;
-	}
+        TakePhoto();
+        tripping = false;
+    }
 }
