@@ -89,7 +89,6 @@ public class AvatarManager : MonoBehaviour {
 
     void TakePhoto()
     {
-        Debug.Log("PHOTOS: " + Application.persistentDataPath + "/photo" + photoNumber + ".png");
 
         Texture2D photo = new Texture2D(webCamTexture.width, webCamTexture.height);
         photo.SetPixels(webCamTexture.GetPixels());
@@ -99,8 +98,11 @@ public class AvatarManager : MonoBehaviour {
         byte[] bytes = photo.EncodeToPNG();
         //Write out the PNG. Of course you have to substitute your_path for something sensible
         DateTime dt = DateTime.Now;
-        string datetime = dt.ToString("yyyy-MM-dd\\THH:mm:ss\\Z");
-        File.WriteAllBytes(Application.persistentDataPath + "/" + datetime + ".png", bytes);
+        string datetime = dt.ToString("yyyyMMddTHHmmssZ");
+
+        string filepath = Application.persistentDataPath + "/" + datetime + ".png";
+        Debug.Log("PHOTOS FilePath: " + filepath);
+        File.WriteAllBytes(filepath, bytes);
         photoNumber++;
     }
 
