@@ -131,7 +131,6 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
 			return;
 
         ResetLadyScales();
-        ResetSantaScales();
 
 		if(isSanta) {
             SwapAvatar();

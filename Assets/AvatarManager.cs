@@ -10,28 +10,22 @@ public class AvatarManager : MonoBehaviour {
 	public List<GameObject> ladies;
     public GameObject plane;
 	public GameObject backgroundCamera1;
-	private KinectManager kinectManager;
-    WebCamTexture webCamTexture;
-    int photoNumber = 0;
+    public GameObject mainCamera;
+    private KinectManager kinectManager;
 
     private bool tripping = false;
 
-    private void Awake()
-    {
-        webCamTexture = new WebCamTexture();
-        webCamTexture.deviceName = "Kinect V2 Video Sensor";
-        plane.GetComponentInChildren<Renderer>().enabled = false;
-        plane.GetComponentInChildren<Renderer>().material.mainTexture = webCamTexture;
-    }
-
     void Start () {
 		kinectManager = GameObject.Find("KinectController").GetComponent<KinectManager>();
-        webCamTexture.Play();
     }
 	
 	void Update () {
 		CheckForGroupPose();
-	}
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            PreparePhoto();
+        }
+    }
 
 	public void SwapAvatarAtIndex(int playerIndex) {
 		var r = ladies[playerIndex].GetComponentInChildren<SkinnedMeshRenderer>();
@@ -81,40 +75,32 @@ public class AvatarManager : MonoBehaviour {
 				posedCount++;
 			}
 		}
-		if(posedCount == userCount && userCount > 0 && backgroundCamera1.GetComponent<Camera>().enabled == true) {
+		if(posedCount == userCount && userCount > 0 && backgroundCamera1.GetComponent<Camera>().enabled == true && tripping == false) {
+            tripping = true;
             PreparePhoto();
 		}
 	}
 
 
-    void TakePhoto()
+    public void TakePhoto()
     {
 
-        Texture2D photo = new Texture2D(webCamTexture.width, webCamTexture.height);
-        photo.SetPixels(webCamTexture.GetPixels());
-        photo.Apply();
+       var keyCapture = GameObject.Find("KeyCommander").GetComponent<KeyCapture>();
+        keyCapture.TakePhoto();
 
-        //Encode to a PNG
-        byte[] bytes = photo.EncodeToPNG();
-        //Write out the PNG. Of course you have to substitute your_path for something sensible
-        DateTime dt = DateTime.Now;
-        string datetime = dt.ToString("yyyyMMddTHHmmssZ");
-
-        string filepath = Application.persistentDataPath + "/" + datetime + ".png";
-        Debug.Log("PHOTOS FilePath: " + filepath);
-        File.WriteAllBytes(filepath, bytes);
-        photoNumber++;
     }
 
     void PreparePhoto()
     {
-        plane.GetComponentInChildren<Renderer>().enabled = true;
-        Invoke("StopRenderer", 3);
+        var keyCapture = GameObject.Find("KeyCommander").GetComponent<KeyCapture>();
+        keyCapture.showCamera(true);
+        Invoke("StopRenderer", 4);
     }
 
     void StopRenderer()
     {
-        plane.GetComponentInChildren<Renderer>().enabled = false;
+        var keyCapture = GameObject.Find("KeyCommander").GetComponent<KeyCapture>();
+        keyCapture.showCamera(false);
         Invoke("Trip", 1);
     }
 

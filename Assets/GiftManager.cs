@@ -22,9 +22,11 @@ public class GiftManager : MonoBehaviour {
         
 		var gift = Instantiate(randomPrefab, new Vector3(-10,0,0), Quaternion.identity);
 		gift.transform.position = new Vector3(Random.Range(-2.4f,2.4f), 2.4f, 1.5f);
+        var size = Random.Range(0.2f, 0.75f);
+        gift.transform.localScale = new Vector3(size, size, size);
 
-		// gift.transform.position = new Vector3(0, 1, 1.5f);
+        // gift.transform.position = new Vector3(0, 1, 1.5f);
 
 
-	}
+    }
 }
