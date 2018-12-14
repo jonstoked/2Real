@@ -57,7 +57,10 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
     void Update()
     {
         manager = KinectManager.Instance;
-        userId = manager.GetUserIdByIndex(playerIndex);
+        if (manager.GetUserIdByIndex(playerIndex) != null)
+        {
+            userId = manager.GetUserIdByIndex(playerIndex);
+        }
 
         if (lastDepthFrameTime != manager.GetSensorData().lastDepthFrameTime) //only check joint velocity when depth data updates
         {
