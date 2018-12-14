@@ -75,13 +75,31 @@ public class AvatarManager : MonoBehaviour {
 				posedCount++;
 			}
 		}
-		Debug.Log("p " + posedCount);
-		Debug.Log(userCount);
 		if(posedCount == userCount && userCount > 0 && tripping == false) {
             tripping = true;
             Trip();
 		}
 	}
+
+    public void randomizeOtherPlayer()
+    {
+        var playerCount = kinectManager.GetAllUserIds().Count;
+        var playerIndex = UnityEngine.Random.Range(0, playerCount);
+        var lady = ladies[playerIndex];
+        var santa = santas[playerIndex];
+        var r = ladies[playerIndex].GetComponentInChildren<SkinnedMeshRenderer>();
+        bool isLady = r.enabled;
+        if (isLady)
+        {
+            var danceController = lady.GetComponentInChildren<DanceController>();
+            danceController.randomizeBody();
+        }
+        else
+        {
+            var danceController = santa.GetComponentInChildren<DanceController>();
+            danceController.randomizeBody();
+        }
+    }
 
 
     public void TakePhoto()

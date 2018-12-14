@@ -13,6 +13,7 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
     public bool squatting = false;
     public bool handface = false;
     public bool strongMan = false;
+    public bool legHeld = false;
 
     public GameObject backgroundCamera1;
     public GameObject opposite;
@@ -98,8 +99,11 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
         if (collision.gameObject.tag == "Fish")
         {
             var fish = collision.gameObject;
-            var skinnedMeshRenderer = fish.GetComponentInChildren<SkinnedMeshRenderer>();
-            renderer.material = skinnedMeshRenderer.material;
+            if (fish.GetComponentInChildren<SkinnedMeshRenderer>() != null)
+            {
+                var skinnedMeshRenderer = fish.GetComponentInChildren<SkinnedMeshRenderer>();
+                renderer.material = skinnedMeshRenderer.material;
+            }
             fish.GetComponent<FishMovement>().FreakOut();            
         }
     }
@@ -281,11 +285,6 @@ private void CheckForChickenArms()
         {
             avatarScaler.headScaleFactor += scaleRate;
         }
-
-        if (legUp)
-        {
-            // ToggleCamera1();
-        }
     }
 
     Vector3 JointPos(int jointIndex)
@@ -323,6 +322,7 @@ private void CheckForChickenArms()
 
     public void GestureInProgress(long userId, int userIndex, KinectGestures.Gestures gesture, float progress, KinectInterop.JointType joint, Vector3 screenPos)
     {
+
     }
 
     public bool GestureCompleted(long userId, int userIndex, KinectGestures.Gestures gesture, KinectInterop.JointType joint, Vector3 screenPos)
@@ -339,13 +339,18 @@ private void CheckForChickenArms()
             }
             else if (gesture == KinectGestures.Gestures.Jump)
             {
-                avatarScaler.bodyScaleFactor = UnityEngine.Random.Range(0f, 2.0f);
-                avatarScaler.armScaleFactor = UnityEngine.Random.Range(0f, 2.0f);
-                avatarScaler.legScaleFactor = UnityEngine.Random.Range(0f, 2.0f);
-                avatarScaler.headScaleFactor = UnityEngine.Random.Range(0f, 2.0f);
+               randomizeBody();
             }
         }
         return true;
+    }
+
+    public void randomizeBody()
+    {
+        avatarScaler.bodyScaleFactor = UnityEngine.Random.Range(0f, 2.0f);
+        avatarScaler.armScaleFactor = UnityEngine.Random.Range(0f, 2.0f);
+        avatarScaler.legScaleFactor = UnityEngine.Random.Range(0f, 2.0f);
+        avatarScaler.headScaleFactor = UnityEngine.Random.Range(0f, 2.0f);
     }
 
     public bool GestureCancelled(long userId, int userIndex, KinectGestures.Gestures gesture, KinectInterop.JointType joint)
