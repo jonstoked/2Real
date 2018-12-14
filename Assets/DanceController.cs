@@ -190,7 +190,7 @@ public class DanceController : MonoBehaviour, KinectGestures.GestureListenerInte
         var leftShoulderPosition = JointPos(4);
         var rightShoulderPosition = JointPos(8);
 
-        float diffFactor = 1.5f;
+        float diffFactor = 1.3f;
 
         var leftHandUpOnly = (leftHandPosition.y > leftShoulderPosition.y * diffFactor && rightHandPosition.y < rightShoulderPosition.y);
         var rightHandUpOnly = (rightHandPosition.y > rightShoulderPosition.y * diffFactor && leftHandPosition.y < leftShoulderPosition.y);

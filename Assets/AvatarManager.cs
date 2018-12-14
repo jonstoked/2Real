@@ -75,7 +75,9 @@ public class AvatarManager : MonoBehaviour {
 				posedCount++;
 			}
 		}
-		if(posedCount == userCount && userCount > 0 && backgroundCamera1.GetComponent<Camera>().enabled == true && tripping == false) {
+		Debug.Log("p " + posedCount);
+		Debug.Log(userCount);
+		if(posedCount == userCount && userCount > 0 && tripping == false) {
             tripping = true;
             PreparePhoto();
 		}
