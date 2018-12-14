@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using System;
 
 public class AvatarManager : MonoBehaviour {
 
@@ -97,7 +98,9 @@ public class AvatarManager : MonoBehaviour {
         //Encode to a PNG
         byte[] bytes = photo.EncodeToPNG();
         //Write out the PNG. Of course you have to substitute your_path for something sensible
-        File.WriteAllBytes(Application.persistentDataPath + "/photo" + photoNumber + ".png", bytes);
+        DateTime dt = DateTime.Now;
+        string datetime = dt.ToString("yyyy-MM-dd\\THH:mm:ss\\Z");
+        File.WriteAllBytes(Application.persistentDataPath + "/" + datetime + ".png", bytes);
         photoNumber++;
     }
 
