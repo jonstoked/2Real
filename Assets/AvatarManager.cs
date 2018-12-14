@@ -21,6 +21,10 @@ public class AvatarManager : MonoBehaviour {
 	
 	void Update () {
 		CheckForStrongMen();
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            PreparePhoto();
+        }
     }
 
 	public void SwapAvatarAtIndex(int playerIndex) {
