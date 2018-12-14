@@ -17,6 +17,7 @@ public class FishMovement : MonoBehaviour {
     void Start () {
         trailRenderer = GetComponent<TrailRenderer>();
         trailRenderer.enabled = false;
+        Invoke("Remove", 30);
     }
 
     void Update () {
