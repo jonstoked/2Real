@@ -14,14 +14,17 @@ public class AvatarManager : MonoBehaviour {
     int photoNumber = 0;
 
     private bool tripping = false;
-	
 
-	void Start () {
-		kinectManager = GameObject.Find("KinectController").GetComponent<KinectManager>();
+    private void Awake()
+    {
         webCamTexture = new WebCamTexture();
         webCamTexture.deviceName = "Kinect V2 Video Sensor";
-        plane.GetComponentInChildren<Renderer>().material.mainTexture = webCamTexture;
         plane.GetComponentInChildren<Renderer>().enabled = false;
+        plane.GetComponentInChildren<Renderer>().material.mainTexture = webCamTexture;
+    }
+
+    void Start () {
+		kinectManager = GameObject.Find("KinectController").GetComponent<KinectManager>();
         webCamTexture.Play();
     }
 	
