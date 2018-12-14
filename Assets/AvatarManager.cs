@@ -86,10 +86,8 @@ public class AvatarManager : MonoBehaviour {
 
     public void TakePhoto()
     {
-
        var keyCapture = GameObject.Find("KeyCommander").GetComponent<KeyCapture>();
         keyCapture.TakePhoto();
-
     }
 
     void PreparePhoto()
@@ -108,14 +106,10 @@ public class AvatarManager : MonoBehaviour {
 
     void Trip()
     {
-        
-        if (!tripping) {
-            tripping = true;
         	Camera camera = backgroundCamera1.GetComponent<Camera>();
         	camera.enabled = false;
             Invoke("TakePhoto", 4);
             Invoke("UnTrip", 10);
-		}
     }
 
 	void UnTrip() {
